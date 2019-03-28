@@ -10,6 +10,7 @@ import { Page404Component } from './components/page404/page404.component';
 import { MainFeedComponent } from './components/main-feed/main-feed.component';
 import { PostComponent } from './components/post/post.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path:'user/profile', component:ProfileComponent},
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
+  {path:'admin', component: AdminComponent},
   {path:'**', component: Page404Component}
 ];
 

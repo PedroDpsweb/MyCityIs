@@ -18,6 +18,7 @@ import { RegisterComponent } from "./components/users/register/register.componen
 import { Page404Component } from "./components/page404/page404.component";
 import { MainFeedComponent } from "./components/main-feed/main-feed.component";
 import { SubirPostComponent } from './components/subir-post/subir-post.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 
@@ -48,7 +49,8 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
     Page404Component,
     MainFeedComponent,
     SubirPostComponent,
-    CategoriasComponent
+    CategoriasComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
