@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataApiService } from 'src/app/services/data-api.service';
 
 @Component({
   selector: 'app-main-feed',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainFeedComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dataApi: DataApiService) { }
+
+  public posts = [];
+  public post = '';
 
   ngOnInit() {
+    this.dataApi.getAllPosts().subscribe(posts => {
+      this.posts = posts;
+      console.log(this.posts);
+    })
   }
 
 }

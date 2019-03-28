@@ -1,0 +1,69 @@
+.categoria {
+    
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    width: 200px;
+    overflow: hidden;
+}
+
+.child{
+    width: 100%;
+    height: 100%;
+    background-color: black; /* fallback color */
+    background-position: center;
+    background-size: cover;
+    transition: all .5s;
+}
+
+.child span{
+    padding: 0;
+    margin:0;
+    display: none;
+    position: absolute;
+    color:white;
+    font-size: 50px;
+    text-align: center;
+    background-color: rgba(00,00,00,0.5);
+    width: 100%;
+    height: 100%;
+    
+}
+.child span p {
+    position: absolute;
+    bottom: 10%;
+    left:50%;
+}
+
+
+
+.fitness {
+    background-image: url("../../../assets/fitness.jpg");
+
+}
+
+.skate {
+    background-image: url("../../../assets/skate.jpg");
+
+}
+
+.adventure{
+    background-image: url("../../../assets/adventure.jpg");
+    background-position-x: 25%;
+
+}
+
+.categoria:hover .child,
+.categoria:focus .child {
+  transform: scale(1.2);
+}
+
+.categoria:hover .child span,
+.categoria:focus .child span {
+  display:block;
+}
+
+h1 {
+    font-family: 'Merienda One', cursive;
+}

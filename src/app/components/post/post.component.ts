@@ -1,4 +1,8 @@
+import { postInterface } from './../../models/post';
+import { DataApiService } from 'src/app/services/data-api.service';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+
 
 @Component({
   selector: 'app-post',
@@ -7,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private dataApi: DataApiService,
+    private route: ActivatedRoute,
+    ) { }
+
+  public post: postInterface = {};
 
   ngOnInit() {
+    
+    const idPost = this.route.snapshot.params['id'];
+    this.getDetails(idPost);
+  }
+
+  getDetails(idPost){
+    this.dataApi.getOnePost(idPost).subscribe( post =>{
+      this.post = post;
+    })
   }
 
 }

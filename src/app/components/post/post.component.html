@@ -1,3 +1,14 @@
-<p>
-  post works!
-</p>
+<div class="container mt-5 w-75 text-center">
+    <div class="card mx-auto w-100">
+        <img class="card-img-top" src="{{post.photoUrl}}" alt="{{post.title}}">
+        <div class="card-body">
+          <h5 class="card-title">{{post.title}}</h5>
+          <p class="card-text">{{post.description}}</p>
+          <p class="card-text">{{post.user}}</p>
+          <p class="card-text">{{post.date}}</p>
+          <p class="card-text">Me gusta: {{post.like}}
+              <button type="button" class="btn btn-success"><i class="fas fa-thumbs-up"></i></button>
+          </p>
+        </div>
+      </div>
+</div>
