@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
          this.user = userConf;
          this.user.photoUrl = user.photoURL;
          console.log(this.user)
-         this.countingStars(this.user.stars);
+         this.printStars(this.countingStars(this.user.stars))
        })
       } 
     }
@@ -49,10 +49,26 @@ export class ProfileComponent implements OnInit {
     //función para representar tu puntuación con estrellas
     let counter = starConf.userStar.length;
     let total = parseInt(starConf.totalStars, 10);
-    let stars = total/counter;
-
+    let stars = Math.floor(total/counter);
     console.log(total);
+    return stars
     
+  }
+
+  printStars(numStar){
+    let starCont = document.getElementById("starCont");
+    for(let i=0; i<5; i++){
+      if(i<numStar){
+        let star = document.createElement('i');
+        star.className= "fas fa-star"
+        starCont.appendChild(star);
+      }else{
+        let star = document.createElement('i');
+        star.className= "far fa-star";
+        starCont.appendChild(star);
+        
+      }
+    }
   }
 
 }
