@@ -1,3 +1,4 @@
+
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -21,9 +22,6 @@ import { SubirPostComponent } from './components/subir-post/subir-post.component
 import { AdminComponent } from './components/admin/admin.component';
 
 
-
-
-
 //Imports de Firebase
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
@@ -31,6 +29,9 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { CategoriasComponent } from './components/categorias/categorias.component';
+
+//Pipes
+import { SanitizePipe } from './pipes/sanitize.pipe';
 
 
 
@@ -50,7 +51,8 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
     MainFeedComponent,
     SubirPostComponent,
     CategoriasComponent,
-    AdminComponent
+    AdminComponent,
+    SanitizePipe,
   ],
   imports: [
     BrowserModule,

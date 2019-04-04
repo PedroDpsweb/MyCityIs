@@ -16,6 +16,8 @@ export class NavbarComponent implements OnInit {
 
   public app_name: string = "My City Is";
   public isLogged: boolean = false;
+  public userUid: string = "";
+  public isAdmin: boolean = false;
 
   ngOnInit() {
     this.getCurrentUser();
@@ -25,9 +27,13 @@ export class NavbarComponent implements OnInit {
     this.authService.isAuth().subscribe(auth => {
       if (auth) {
         console.log('user logged');
+        console.log(auth.displayName);
         this.isLogged = true;
-        console.log(auth);
-    }else{
+        this.userUid = auth.uid;
+        this.authService.isUserAdmin(this.userUid).subscribe(userRole => {
+          this.isAdmin = Object.assign({}, userRole.roles).hasOwnProperty("admin");
+        })
+  }else{
       console.log('not logged');
       this.isLogged = false;
     }

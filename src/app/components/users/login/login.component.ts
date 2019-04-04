@@ -21,20 +21,18 @@ export class LoginComponent implements OnInit {
 
   public email: string = '';
   public password: string = '';
+  public isError = false;
 
   ngOnInit() {
   }
 
-  // onLoginGoogle(){
-  //   this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-  //   this.router.navigate([''])
-  // }
-
   onLogin() {
     this.authService.loginEmailUser(this.email, this.password)
     .then ((res) =>{
-      this.router.navigate(['user/mainFeed']);
-    }).catch( err => console.log('err', err.message));
+      let user = this.afAuth.auth.currentUser.uid;
+      sessionStorage.setItem("currentUser",user);
+      this.router.navigate(['user/categorias']);
+    }).catch( err => this.isError = true);
   }
 
   onLogout(){

@@ -1,3 +1,4 @@
+
 import { SubirPostComponent } from './components/subir-post/subir-post.component';
 import { ProfileComponent } from './components/users/profile/profile.component';
 import { NgModule } from '@angular/core';
@@ -12,18 +13,23 @@ import { PostComponent } from './components/post/post.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { AdminComponent } from './components/admin/admin.component';
 
+//Guards
+import { AuthGuard } from './guards/auth.guard';
+import { AdminGuardGuard } from './guards/admin-guard.guard';
+
+
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
-  {path:'user/categorias', component: CategoriasComponent},
+  {path:'user/categorias', component: CategoriasComponent ,canActivate:[AuthGuard]},
   {path:'listaPosts', component: ListaPostsComponent},
-  {path:'user/post/:id', component: PostComponent},
-  {path:'user/subirPost', component: SubirPostComponent},
-  {path:'user/mainFeed', component: MainFeedComponent},
-  {path:'user/profile', component:ProfileComponent},
+  {path:'user/post/:id', component: PostComponent ,canActivate:[AuthGuard]},
+  {path:'user/subirPost', component: SubirPostComponent ,canActivate:[AuthGuard]},
+  {path:'user/mainFeed', component: MainFeedComponent ,canActivate:[AuthGuard]},
+  {path:'user/profile', component:ProfileComponent ,canActivate:[AuthGuard]},
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
-  {path:'admin', component: AdminComponent},
+  {path:'admin', component: AdminComponent, canActivate:[AdminGuardGuard]},
   {path:'**', component: Page404Component}
 ];
 

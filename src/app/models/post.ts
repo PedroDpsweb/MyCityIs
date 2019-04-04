@@ -6,6 +6,7 @@ export interface postInterface {
     photoUrl?:string;
     date?:string;
     like?:string;
+    userUid?: string;
 
 
 }

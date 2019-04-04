@@ -21,7 +21,7 @@ export class SubirPostComponent implements OnInit {
   }
 
   getListPosts(){
-    this.dataApi.getAllPosts().subscribe( posts => {
+    this.dataApi.getAll('Post').subscribe( posts => {
       this.posts = posts;
     })
   }

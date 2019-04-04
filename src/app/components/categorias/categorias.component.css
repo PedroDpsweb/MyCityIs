@@ -54,6 +54,10 @@
 
 }
 
+.post{
+    background-image: url("../../../assets/post.jpg");
+}
+
 .categoria:hover .child,
 .categoria:focus .child {
   transform: scale(1.2);

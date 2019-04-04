@@ -37,7 +37,8 @@ export class RegisterComponent implements OnInit {
           console.log('aqui ' + this.inputImageUser.nativeElement.value);
           user.updateProfile({
             displayName:this.userName,
-            photoURL: this.inputImageUser.nativeElement.value
+            photoURL: this.inputImageUser.nativeElement.value,
+
           }).then(() => {
             this.router.navigate(['user/mainFeed']);;
           }).catch((error) => console.log('error', error));

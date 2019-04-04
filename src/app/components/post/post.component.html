@@ -11,4 +11,18 @@
           </p>
         </div>
       </div>
+      <div class="controlPanel container mb-5" *ngIf="isAdmin == true; else noOwner">
+          <p>ConPermisos</p>
+          <button class="btn btn-success mx-2">Update</button>
+          <button class="btn btn-danger mx-2" (click)="OnDeletePost(post.id)">Delete</button>
+        </div>
+
+      <ng-template #noOwner>
+          <div class="controlPanel container mb-5">
+            <p>Sin Permisos</p>
+            <button class="btn btn-secondary mx-2" disabled="true">Update</button>
+            <button class="btn btn-secondary mx-2" disabled="true">Delete</button>
+          </div>
+        </ng-template>
+      
 </div>

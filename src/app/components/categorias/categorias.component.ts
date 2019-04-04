@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DataApiService } from './../../services/data-api.service';
+import { Component, OnInit ,ElementRef , ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-categorias',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriasComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private dataApi: DataApiService
+  ) { }
 
+  public categories = [];
+
+
+  @ViewChild('asunto') asunto : ElementRef;
   ngOnInit() {
+    this.dataApi.getAll('Categoria').subscribe(categories => {
+      this.categories = categories;
+      console.log('categorias',this.categories);
+    })
+  }
+
+  setCategoria(){
+    let category = event.srcElement.childNodes[0].textContent;
+    sessionStorage.clear();
+    sessionStorage.setItem("categoria", category);
   }
 
 }

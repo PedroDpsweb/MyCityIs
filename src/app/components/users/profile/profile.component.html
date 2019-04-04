@@ -2,18 +2,30 @@
   <div class="row mt-5">
     <div class="offset-lg-4 col-lg-4 col-sm-6 col-12 main-section text-center card">
       <div class="row">
-        <div class="col-lg-12 col-sm-12 col-12 profile-header"></div>
+        <div class="col-lg-12 col-sm-12 col-12 profile-header">
+          <img src={{user.photoUrl}} class="rounded-circle img-thumbnail mt-4 mb-2" alt="profile">
+          
+        </div>
       </div>
       <div class="row user-details">
         <div class="col-12">
-          <img src={{user.photoUrl}} class="rounded-circle img-thumbnail" alt="profile">
-          <h5>{{user.name}}</h5>
-          <p>
-            {{user.email}}
-          </p>
+            <h2 class="mt-3">{{user.name}}</h2>
+            <p>
+              {{user.email}}
+            </p>
+          
+          
+          <h3 class="my-3">Categorias</h3>
+          <div class="alert alert-primary" role="alert" *ngFor='let category of user.categories'>
+            {{category}}
+          </div>
 
           <hr>
-          <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores suscipit itaque minima quae.</span>
+          <h4 class="my-3">Estado</h4>
+          <div class="col-12">{{user.desc}}</div>
+          <h4 class="my-3">Estrellas</h4>
+          <div class="col-12">{{user.stars.totalStars}}</div>
+          
         </div>
       </div>
     </div>

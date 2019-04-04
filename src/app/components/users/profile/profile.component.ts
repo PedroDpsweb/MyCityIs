@@ -1,7 +1,8 @@
-import { userInterface } from './../../../models/user';
+import { DataApiService } from 'src/app/services/data-api.service';
+import { UserInterface } from './../../../models/user';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 
 @Component({
   selector: 'app-profile',
@@ -11,28 +12,47 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class ProfileComponent implements OnInit {
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private dataService: DataApiService
 
   ) { }
 
-  user: userInterface = {
+  user: UserInterface = {
     name:'',
     email:'',
-    photoUrl:''
-
-  }
+    photoUrl:'',
+    roles:{},
+    stars:{},
+    categories:'',
+    desc:''
+  };
   ngOnInit() {
     
     this.authService.isAuth().subscribe( user => {
       if(user){
-        this.user.name = user.displayName;
-        this.user.email = user.email;
-        this.user.photoUrl = user.photoURL;
+        
+       this.dataService.getUserConf(user.uid).subscribe(userConf =>{
+        console.log(userConf);
+         this.user = userConf;
+         this.user.photoUrl = user.photoURL;
+         console.log(this.user)
+         this.countingStars(this.user.stars);
+       })
       } 
     }
-      
-
     )
+
+    
+  }
+
+  countingStars(starConf){
+    //función para representar tu puntuación con estrellas
+    let counter = starConf.userStar.length;
+    let total = parseInt(starConf.totalStars, 10);
+    let stars = total/counter;
+
+    console.log(total);
+    
   }
 
 }

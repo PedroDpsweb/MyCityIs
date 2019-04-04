@@ -12,17 +12,19 @@ import { map } from 'rxjs/operators';
 export class DataApiService {
 
   constructor(private afs: AngularFirestore) {
-    //this.postsCollection = this.afs.collection<postInterface>('Post');
-    //this.posts = this.postsCollection.valueChanges();
    }
 
   private postsCollection : AngularFirestoreCollection<postInterface>;
   private posts: Observable<postInterface[]>;
   private postDoc: AngularFirestoreDocument<postInterface>;
   private post: Observable<postInterface>;
+  public selectedPost : postInterface = {
+     id: null
+  }
+ 
 
-  getAllPosts(){
-    this.postsCollection = this.afs.collection<postInterface>('Post');
+  getAll(category){
+    this.postsCollection = this.afs.collection<postInterface>(category);
     return this.posts = this.postsCollection.snapshotChanges()
     .pipe( map( changes => {
       return changes.map( action => {
@@ -34,7 +36,8 @@ export class DataApiService {
   }
 
   getOnePost(idPost: string){
-    this.postDoc = this.afs.doc<postInterface>(`Post/${idPost}`);
+    let category = sessionStorage.getItem('categoria');
+    this.postDoc = this.afs.doc<postInterface>(category+`/${idPost}`);
     return this.post = this.postDoc.snapshotChanges()
     .pipe(map(action =>{
       if (action.payload.exists === false){
@@ -53,16 +56,28 @@ export class DataApiService {
     this.postsCollection.add(post)
   }
 
-  updatePost(post: postInterface){
+  updatePost(post: postInterface, category: string){
     let idPost = post.id;
-    this.postDoc = this.afs.doc<postInterface>(`Post/${idPost}`);
+    this.postDoc = this.afs.doc<postInterface>(category+`/${idPost}`);
     this.postDoc.update(post);
   }
-  deletePost(idPost: string){
-    this.postDoc = this.afs.doc<postInterface>(`Post/${idPost}`);
+  deletePost(idPost: string, category: string){
+    this.postDoc = this.afs.doc<postInterface>(category+`/${idPost}`);
     this.postDoc.delete();
   }
-  getAllCategories(){
+
+  
+  getUserConf(userUid){
+    this.postDoc = this.afs.doc<postInterface>(`users/${userUid}`);
+    return this.post = this.postDoc.snapshotChanges()
+    .pipe(map(action =>{
+      if (action.payload.exists === false){
+        return null;
+      }else{
+        const data = action.payload.data();
+        return data;
+      }
+    }))
 
   }
 }
