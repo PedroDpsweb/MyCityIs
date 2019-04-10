@@ -27,6 +27,7 @@ export class PostComponent implements OnInit {
     const idPost = this.route.snapshot.params["id"];
     this.getDetails(idPost);
     this.getCurrentUser();
+    
   }
 
   getDetails(idPost) {

@@ -2,6 +2,7 @@ import { DataApiService } from 'src/app/services/data-api.service';
 import { UserInterface } from './../../../models/user';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from "@angular/router";
 
 
 @Component({
@@ -13,7 +14,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private dataService: DataApiService
+    private dataService: DataApiService,
+    private route: ActivatedRoute
 
   ) { }
 
@@ -27,11 +29,12 @@ export class ProfileComponent implements OnInit {
     desc:''
   };
   ngOnInit() {
+    const userId = this.route.snapshot.params["id"];
     
     this.authService.isAuth().subscribe( user => {
       if(user){
         
-       this.dataService.getUserConf(user.uid).subscribe(userConf =>{
+       this.dataService.getUserConf(userId).subscribe(userConf =>{
         console.log(userConf);
          this.user = userConf;
          this.user.photoUrl = user.photoURL;

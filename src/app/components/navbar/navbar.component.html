@@ -13,12 +13,25 @@
         </a>
       </li>
       <li class="nav-item" *ngIf="isLogged">
+          <form class="form-inline my-2 my-lg-0">
+              <input id="search" class="form-control mr-sm-2" type="search" placeholder="Nombre Usuario" aria-label="Nombre Usuario">
+              <button class="btn btn-outline-light my-2 my-sm-0" (click)="searchUser()">Buscador</button>
+            </form>
+      </li>
+      <li class="nav-item" *ngIf="isAdmin">
+        <a class="nav-link" routerLink="/admin">Panel Administrador
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="isLogged">
           <a class="nav-link" routerLink="/user/mainFeed">Muro
           </a>
         </li>
       <li class="nav-item" *ngIf="isLogged">
-        <a class="nav-link" routerLink="/user/profile">Perfil</a>
+        <a class="nav-link" routerLink="/user/profile/{{userUid}}">Perfil</a>
       </li>
+      <li class="nav-item" *ngIf="isLogged">
+          <a class="nav-link" routerLink="/user/inBox">Mis mensajes</a>
+        </li>
       <li class="nav-item" *ngIf="isLogged">
         <a class="nav-link" routerLink="/user/categorias">Categorías</a>
       </li>

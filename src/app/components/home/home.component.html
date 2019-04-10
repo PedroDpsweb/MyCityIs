@@ -1,2 +1,14 @@
-<app-login></app-login>
-<app-register></app-register>
+<div id="home" class="container-fluid">
+    <div id="title" class="container">
+            <h1 class="animated fadeInUp delay-2s my-3">My City Is</h1>
+            <h2 class="animated fadeInUp delay-2s my-3">Conecta con tu ciudad</h2>
+            <button type="button" routerLink="/user/categorias" class="btn btn-outline-light ml-5 enter animated fadeInUp delay-3s my-3" *ngIf="isLogged">Entrar</button>
+            <div *ngIf="!isLogged" class="animated fadeInUp delay-3s">
+                    <button type="button" routerLink="/login" class="btn btn-outline-light ml-5 enter my-3">Log In</button>
+                    <p class="ml-5">Si eres nuevo registrate <a id="register" [routerLink]="['/register']">Aquí</a></p>
+            </div>
+            
+            
+    </div>
+   
+</div>

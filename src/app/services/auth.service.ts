@@ -64,4 +64,9 @@ export class AuthService {
       return admin;
     
   }
+
+  finalizar(){
+    return true;
+  }
+
 }

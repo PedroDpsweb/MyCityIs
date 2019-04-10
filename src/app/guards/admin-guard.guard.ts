@@ -20,22 +20,27 @@ export class AdminGuardGuard implements CanActivate {
 
   
   private isAdmin: any = null;
+  private user: string = "";
 
-  canActivate(
+   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
-
-    let user = sessionStorage.getItem('currentUser');
-    console.log("hola", user);
-    this.isAdmin = this.authService.confirmUserAdmin(user);
-    console.log("hola2", this.isAdmin);
-    if(this.isAdmin == false){
-      this.router.navigate(['']);
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree  {
+    this.user = sessionStorage.getItem("currentUser");
+    return this.authService.isUserAdmin(this.user).pipe(map(result => {
+    if(result.roles.admin){
+     console.log(result);
+     return result.roles.admin;
     }else{
-      return true;
+      this.router.navigate(['']);
+      
     }
-  
+   
+    }));
+
+
+   
+
+    }
+
+    
   }
-}

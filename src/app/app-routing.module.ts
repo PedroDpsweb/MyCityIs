@@ -1,4 +1,3 @@
-
 import { SubirPostComponent } from './components/subir-post/subir-post.component';
 import { ProfileComponent } from './components/users/profile/profile.component';
 import { NgModule } from '@angular/core';
@@ -12,6 +11,8 @@ import { MainFeedComponent } from './components/main-feed/main-feed.component';
 import { PostComponent } from './components/post/post.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { InBoxComponent } from './components/in-box/in-box.component';
+
 
 //Guards
 import { AuthGuard } from './guards/auth.guard';
@@ -23,10 +24,11 @@ const routes: Routes = [
   {path:'', component:HomeComponent},
   {path:'user/categorias', component: CategoriasComponent ,canActivate:[AuthGuard]},
   {path:'listaPosts', component: ListaPostsComponent},
+  {path:'user/inBox', component: InBoxComponent},
   {path:'user/post/:id', component: PostComponent ,canActivate:[AuthGuard]},
   {path:'user/subirPost', component: SubirPostComponent ,canActivate:[AuthGuard]},
   {path:'user/mainFeed', component: MainFeedComponent ,canActivate:[AuthGuard]},
-  {path:'user/profile', component:ProfileComponent ,canActivate:[AuthGuard]},
+  {path:'user/profile/:id', component:ProfileComponent ,canActivate:[AuthGuard]},
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
   {path:'admin', component: AdminComponent, canActivate:[AdminGuardGuard]},

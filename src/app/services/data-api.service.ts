@@ -2,7 +2,6 @@ import { Observable } from 'rxjs';
 import { postInterface } from './../models/post';
 import { Injectable } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
-import { database } from 'firebase';
 import { map } from 'rxjs/operators';
 
 
@@ -80,4 +79,7 @@ export class DataApiService {
     }))
 
   }
+
+
+
 }
