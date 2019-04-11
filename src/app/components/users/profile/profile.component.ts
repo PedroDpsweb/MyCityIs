@@ -1,8 +1,10 @@
+import { MailControllerService } from './../../../services/mail.service';
 import { DataApiService } from 'src/app/services/data-api.service';
 import { UserInterface } from './../../../models/user';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
+
 
 
 @Component({
@@ -15,7 +17,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private dataService: DataApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private mail: MailControllerService
 
   ) { }
 
@@ -28,6 +31,9 @@ export class ProfileComponent implements OnInit {
     categories:'',
     desc:''
   };
+
+  public userName="";
+
   ngOnInit() {
     const userId = this.route.snapshot.params["id"];
     
@@ -72,6 +78,9 @@ export class ProfileComponent implements OnInit {
         
       }
     }
+  }
+
+  sendMail(){
   }
 
 }

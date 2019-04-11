@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
+    sessionStorage.clear();
     this.authService.loginEmailUser(this.email, this.password)
     .then ((res) =>{
       let user = this.afAuth.auth.currentUser.uid;

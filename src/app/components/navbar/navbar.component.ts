@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {Router} from '@angular/router';
+//DNS de usuarios
+import DNS from '../../../assets/DNS/users.json';
 
 @Component({
   selector: 'app-navbar',
@@ -25,6 +27,8 @@ export class NavbarComponent implements OnInit {
     this.getCurrentUser();
   }
 
+ 
+
   getCurrentUser(){
     this.authService.isAuth().subscribe(auth => {
       if (auth) {
@@ -47,9 +51,9 @@ export class NavbarComponent implements OnInit {
     this.authService.logoutUser();
   }
 
-  searchUser(){
+  searchUserByName(){
     let search = (<HTMLInputElement>document.getElementById('search')).value;
-    this.router.navigate([`user/profile/${search}`]);
+    this.router.navigate([`user/profile/${DNS[search]}`]);
   }
 
 }

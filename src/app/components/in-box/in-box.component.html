@@ -12,6 +12,7 @@
   <div class="row">
     <div class="col-12" *ngFor="let message of inBox">
         <div class="card-body">
+            <button type="button" class="btn btn-danger" (click)="deleteMessage(message.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
             <h1>{{ message.titulo }} <span *ngIf="!message.leido" class="badge badge-secondary">New</span></h1>
           <div class="alert alert-primary" role="alert">{{ message.body }}</div>
           <div class="row">

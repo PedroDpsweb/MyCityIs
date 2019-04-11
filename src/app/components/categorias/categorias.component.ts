@@ -25,7 +25,6 @@ export class CategoriasComponent implements OnInit {
 
   setCategoria(){
     let category = event.srcElement.childNodes[0].textContent;
-    sessionStorage.clear();
     sessionStorage.setItem("categoria", category);
   }
 

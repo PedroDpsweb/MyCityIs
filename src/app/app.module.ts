@@ -1,4 +1,5 @@
 
+
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -12,6 +13,7 @@ import { ListaPostsComponent } from "./components/lista-posts/lista-posts.compon
 import { PostComponent } from "./components/post/post.component";
 import { HomeComponent } from "./components/home/home.component";
 import { ModalComponent } from "./components/modal/modal.component";
+import { MailModalComponent } from './components/mail-modal/mail-modal.component';
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { LoginComponent } from "./components/users/login/login.component";
 import { ProfileComponent } from "./components/users/profile/profile.component";
@@ -20,6 +22,7 @@ import { Page404Component } from "./components/page404/page404.component";
 import { MainFeedComponent } from "./components/main-feed/main-feed.component";
 import { SubirPostComponent } from './components/subir-post/subir-post.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { InBoxComponent } from './components/in-box/in-box.component';
 
 
 //Imports de Firebase
@@ -32,7 +35,7 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
 
 //Pipes
 import { SanitizePipe } from './pipes/sanitize.pipe';
-import { InBoxComponent } from './components/in-box/in-box.component';
+
 
 
 
@@ -44,6 +47,7 @@ import { InBoxComponent } from './components/in-box/in-box.component';
     PostComponent,
     HomeComponent,
     ModalComponent,
+    MailModalComponent,
     NavbarComponent,
     LoginComponent,
     ProfileComponent,

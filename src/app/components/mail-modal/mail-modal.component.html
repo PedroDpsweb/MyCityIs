@@ -1,0 +1,35 @@
+<div class="modal fade" id="modalMail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mailModalLabel">
+          Mensaje Privado para -- {{userName}}
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form name="formMail" #formMail="ngForm" (ngSubmit)="onSaveMail(formMail)">
+          <input type="hidden" name="id" [(ngModel)]="this.mail.selectedMail.id" >  
+        <div class="form-group">
+          <label for="Titulo">Asunto</label>
+          <input type="text" class="form-control" name="titulo" placeholder="Titulo del Post" [(ngModel)]="this.mail.selectedMail.title" />
+        </div>
+        <div class="form-group">
+          <label for="Descripción">Mensaje</label>
+          <input type="text" class="form-control" name="body" placeholder="Descripción" [(ngModel)]="this.mail.selectedMail.body" />
+        </div>
+        <div class="form-group">
+          <label for="fecha">Fecha</label>
+          <input type="text" class="form-control" name="date" placeholder="12/12/12" [(ngModel)]="this.mail.selectedMail.date" />
+        </div>
+    
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
+      <button type="submit" class="btn btn-primary">Save changes</button>
+    </div>
+  </form>
+    </div>
+  </div>
+</div>

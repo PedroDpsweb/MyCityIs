@@ -21,21 +21,27 @@ export class InBoxComponent implements OnInit {
   ) { }
 
   public inBox = [];
+  private user = "";
 
   ngOnInit() {
     this.getMyInBox();
   }
 
   getOneMessage(){
-    this.mailApi.getMessage().subscribe(prueba => { console.log(prueba)})
+    this.mailApi.getMail().subscribe(prueba => { console.log(prueba)})
   }
 
   getMyInBox(){
-    let user = sessionStorage.getItem("currentUser");
-    this.mailApi.getInBox(user).subscribe(data => {
+    this.user = sessionStorage.getItem("currentUser");
+    this.mailApi.getInBox(this.user).subscribe(data => {
       this.inBox = data;
       console.log("InBox", data);
     })
+  }
+
+  deleteMessage(mailId){
+    console.log(mailId);
+    this.mailApi.deleteMail(mailId,this.user)
   }
 
 }
