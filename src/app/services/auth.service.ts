@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { map } from 'rxjs/operators';
 import { auth } from 'firebase/app';
-import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection} from '@angular/fire/firestore';
+import { mailInterface } from '../models/mail';
 
 
 @Injectable({
@@ -14,15 +15,14 @@ export class AuthService {
   constructor(
     private afsAuth: AngularFireAuth,
     private afs: AngularFirestore) { }
+    private mailsCollection : AngularFirestoreCollection<mailInterface>;
 
-    private administrators :string[] =["kKkZ8lKNF2fdLwfldmXL2fTYvEy2"]
-
-  registerUser(email: string, password: string){
+  registerUser(email: string, password: string, name: string){
     return new Promise((resolve,reject) => {
       this.afsAuth.auth.createUserWithEmailAndPassword(email,password)
     .then(userData => {
       resolve(userData),
-      this.updateUserData(userData.user)
+      this.updateUserData(userData.user, name)
     }).catch(err => console.log(reject(err)))
   });
 }
@@ -41,32 +41,41 @@ export class AuthService {
     return this.afsAuth.authState.pipe(map(auth => auth));
   }
 
-  private updateUserData(user){
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+  updateUserData(user, userName, desc = ""){
+    let inBox = this.mailsCollection;
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userName}`);
     const data : UserInterface = {
+      name: userName,
       id:user.uid,
       email: user.email,
+      desc:"",
+      stars:{
+        totalStars:"0",
+        userStar:[]
+      },
       roles: {
         //revisar este ROL mas adelante
-        admin:true
-      }
+        user:true
+      },
+      categories:[]
+      
+      
       
     }
     return userRef.set(data, {merge:true})
   }
 
-  isUserAdmin(userUid){
-    return this.afs.doc<UserInterface>(`users/${userUid}`).valueChanges();
+  updateUserDescription(userName, desc){
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userName}`);
+    const data : UserInterface = {
+      desc:desc, 
+    }
+    console.log("llega aqui")
+    return userRef.set(data, {merge:true})
   }
 
-  confirmUserAdmin(userUid){
-    let admin = this.administrators.includes(userUid) ? true : false;
-      return admin;
-    
-  }
-
-  finalizar(){
-    return true;
+  isUserAdmin(userName){
+    return this.afs.doc<UserInterface>(`users/${userName}`).valueChanges();
   }
 
 }

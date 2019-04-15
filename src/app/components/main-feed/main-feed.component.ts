@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataApiService } from 'src/app/services/data-api.service';
 import { AuthService } from 'src/app/services/auth.service';
+import {Router} from '@angular/router';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-main-feed',
@@ -11,7 +13,8 @@ export class MainFeedComponent implements OnInit {
 
   constructor(
     private dataApi: DataApiService,
-    private authService :AuthService
+    private authService :AuthService,
+    private route : Router
     ) { }
 
   public posts = [];
@@ -19,18 +22,21 @@ export class MainFeedComponent implements OnInit {
   private category= '';
   public isAdmin: any = null;
   public userUid: string = null;
+  public userName: string = null;
 
   ngOnInit() {
     this.selectCategory();
-    this.dataApi.getAll(this.category).subscribe(posts => {
-      this.posts = posts;
-      console.log(this.posts);
-    })
-  }
+    if(this.category){
+      this.dataApi.getAll(this.category).subscribe(posts => {
+        this.posts = posts;
+        console.log(this.posts);
+      })}else{
+        this.route.navigate(['user/categorias']);
+      }
+    }
 
   selectCategory(){
-    this.category = sessionStorage.getItem('categoria');
-    
+      this.category = sessionStorage.getItem('categoria'); 
   }
 
   getCurrentUser() {

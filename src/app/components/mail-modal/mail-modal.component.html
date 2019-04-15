@@ -12,9 +12,10 @@
       <div class="modal-body">
         <form name="formMail" #formMail="ngForm" (ngSubmit)="onSaveMail(formMail)">
           <input type="hidden" name="id" [(ngModel)]="this.mail.selectedMail.id" >  
+          <input type="hidden" name="user" [(ngModel)]="this.mail.selectedMail.user" >
         <div class="form-group">
           <label for="Titulo">Asunto</label>
-          <input type="text" class="form-control" name="titulo" placeholder="Titulo del Post" [(ngModel)]="this.mail.selectedMail.title" />
+          <input type="text" class="form-control" name="title" placeholder="Titulo del Post" [(ngModel)]="this.mail.selectedMail.title" />
         </div>
         <div class="form-group">
           <label for="Descripción">Mensaje</label>

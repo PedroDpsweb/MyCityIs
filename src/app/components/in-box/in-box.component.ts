@@ -27,20 +27,18 @@ export class InBoxComponent implements OnInit {
     this.getMyInBox();
   }
 
-  getOneMessage(){
-    this.mailApi.getMail().subscribe(prueba => { console.log(prueba)})
-  }
+  // getOneMessage(){
+  //   this.mailApi.getMail().subscribe(prueba => { console.log(prueba)})
+  // }
 
   getMyInBox(){
-    this.user = sessionStorage.getItem("currentUser");
+    this.user = sessionStorage.getItem("currentUserName");
     this.mailApi.getInBox(this.user).subscribe(data => {
       this.inBox = data;
-      console.log("InBox", data);
     })
   }
 
   deleteMessage(mailId){
-    console.log(mailId);
     this.mailApi.deleteMail(mailId,this.user)
   }
 

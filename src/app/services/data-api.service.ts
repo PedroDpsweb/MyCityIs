@@ -66,11 +66,12 @@ export class DataApiService {
   }
 
   
-  getUserConf(userUid){
-    this.postDoc = this.afs.doc<postInterface>(`users/${userUid}`);
+  getUserConf(userName){
+    this.postDoc = this.afs.doc(`users/${userName}`);
     return this.post = this.postDoc.snapshotChanges()
     .pipe(map(action =>{
       if (action.payload.exists === false){
+        
         return null;
       }else{
         const data = action.payload.data();

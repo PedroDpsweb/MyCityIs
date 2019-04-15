@@ -19,12 +19,26 @@
           </div>
 
           <hr>
-          <h4 class="my-3">Estado</h4>
+          <h4 class="my-3">Estado <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <i class="fas fa-edit"></i>
+          </button></h4>
+
+          
+        <div class="collapse" id="collapseExample">
+          <input type="text" class="form-control" id="userNewDesc" placeholder="Escribe tu estado">
+          <button type="button" class="btn btn-primary mt-2" (click)="changeDesc()">Actualizar</button>
+          <br>
+        </div>
+
+
+          
           <div class="col-12">{{user.desc}}</div>
           <h4 class="my-3">Estrellas</h4>
           <div id="starCont" class="col-12">
             <p>Puntos totales: {{user.stars.totalStars}}</p>
           </div>
+          <button type="button" class="btn btn-primary mt-2"><i class="far fa-star"></i></button>
+          <br>
           <button type="button" class="btn btn-primary my-5" data-toggle="modal" data-target="#modalMail">Mensaje Privado</button>
           
         </div>
@@ -33,4 +47,4 @@
   </div>
 </section>
 
-<app-mail-modal [userName]="user.name"></app-mail-modal>
+<app-mail-modal [userName]="user.name" [userId]="userId"></app-mail-modal>

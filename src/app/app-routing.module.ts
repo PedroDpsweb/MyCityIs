@@ -28,7 +28,7 @@ const routes: Routes = [
   {path:'user/post/:id', component: PostComponent ,canActivate:[AuthGuard]},
   {path:'user/subirPost', component: SubirPostComponent ,canActivate:[AuthGuard]},
   {path:'user/mainFeed', component: MainFeedComponent ,canActivate:[AuthGuard]},
-  {path:'user/profile/:id', component:ProfileComponent ,canActivate:[AuthGuard]},
+  {path:'user/profile/:name', component:ProfileComponent ,canActivate:[AuthGuard]},
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
   {path:'admin', component: AdminComponent, canActivate:[AdminGuardGuard]},

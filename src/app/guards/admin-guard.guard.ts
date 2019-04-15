@@ -25,10 +25,9 @@ export class AdminGuardGuard implements CanActivate {
    canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree  {
-    this.user = sessionStorage.getItem("currentUser");
+    this.user = sessionStorage.getItem("currentUserName");
     return this.authService.isUserAdmin(this.user).pipe(map(result => {
     if(result.roles.admin){
-     console.log(result);
      return result.roles.admin;
     }else{
       this.router.navigate(['']);

@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
   public app_name: string = "My City Is";
   public isLogged: boolean = false;
   public userUid: string = "";
+  public userName: string = "";
   public isAdmin: boolean = false;
 
   ngOnInit() {
@@ -29,31 +30,33 @@ export class NavbarComponent implements OnInit {
 
  
 
-  getCurrentUser(){
+  getCurrentUser(): any{
     this.authService.isAuth().subscribe(auth => {
       if (auth) {
-        console.log('user logged');
-        console.log(auth.displayName);
+        console.log('user logged:',auth.displayName);
         this.isLogged = true;
-        this.userUid = auth.uid;
-        this.authService.isUserAdmin(this.userUid).subscribe(userRole => {
+        let nombre = auth.displayName;
+        this.authService.isUserAdmin(auth.displayName).subscribe(userRole => {
+          console.log("a ver" ,Object.assign({}, userRole.roles));
           this.isAdmin = Object.assign({}, userRole.roles).hasOwnProperty("admin");
+          this.userName = sessionStorage.getItem("currentUserName");
         })
   }else{
       console.log('not logged');
       this.isLogged = false;
     }
-      
   });
   }
 
   onLogout(){
+    sessionStorage.clear();
     this.authService.logoutUser();
   }
 
   searchUserByName(){
     let search = (<HTMLInputElement>document.getElementById('search')).value;
-    this.router.navigate([`user/profile/${DNS[search]}`]);
+    this.router.navigate([`user/profile/${search}`]);
+    //this.router.navigate([`user/profile/${DNS[search]}`]);
   }
 
 }

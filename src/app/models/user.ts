@@ -1,6 +1,7 @@
 export interface Roles{
     editor?:boolean;
     admin?:boolean;
+    user?:boolean;
 }
 
 export interface Stars{
@@ -17,7 +18,7 @@ export interface UserInterface {
     roles?: Roles;
     stars?: Stars;
     desc?: string;
-    categories?:string;
+    categories?:any;
 
 
 }

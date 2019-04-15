@@ -19,6 +19,7 @@ export class ModalComponent implements OnInit {
 
   @ViewChild('btnClose') btnClose: ElementRef;
   @Input('userUid') userUid: string;
+  @Input('userName') userName: string;
   private user="";
 
   ngOnInit() {

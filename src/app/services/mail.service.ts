@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
@@ -26,6 +25,7 @@ export class MailControllerService {
 
   getInBox(user){
     //this.mailsCollection = this.afs.collection(`inBox/${user}/mail`);
+    console.log(user);
     this.mailsCollection = this.afs.collection(`users/${user}/inBox`);
     return this.mails = this.mailsCollection.snapshotChanges()
     .pipe( map( changes => {
@@ -39,11 +39,9 @@ export class MailControllerService {
 
   getMail(){
     this.mailDoc = this.afs.doc('inBox/ezm5quDN4YwoMZtj1jJe');
-    console.log('prueba', this.mailDoc);
     return this.mail = this.mailDoc.snapshotChanges()
     .pipe(map(action =>{
       if (action.payload.exists === false){
-        console.log('prueba', action);
         return null;
       }else{
         const data = action.payload.data();
@@ -53,8 +51,9 @@ export class MailControllerService {
 
   }
 
-  sendMail(user,mail: mailInterface){
-    this.mailsCollection = this.afs.collection(`users/${user}/inBox`);
+  sendMail(mail: mailInterface, destination){
+    let user = mail.user;
+    this.mailsCollection = this.afs.collection(`users/${destination}/inBox`);
     this.mailsCollection.add(mail)
   }
 

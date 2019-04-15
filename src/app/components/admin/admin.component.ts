@@ -27,6 +27,7 @@ export class AdminComponent implements OnInit {
   public categories = [];
   public isAdmin: any = null;
   public userUid: string = null;
+  public userName: string = null;
   
 
   ngOnInit() {
@@ -63,8 +64,8 @@ export class AdminComponent implements OnInit {
   getCurrentUser() {
     this.authService.isAuth().subscribe(auth => {
       if (auth) {
-        this.userUid = auth.uid;
-        this.authService.isUserAdmin(this.userUid).subscribe(userRole => {
+        this.userName = auth.displayName;
+        this.authService.isUserAdmin(this.userName).subscribe(userRole => {
           this.isAdmin = Object.assign({}, userRole.roles).hasOwnProperty("admin");
           //Enseñarselo a Gelpi
           // if(!this.isAdmin){

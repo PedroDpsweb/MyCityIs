@@ -22,6 +22,7 @@ export class PostComponent implements OnInit {
   public post: postInterface = {};
   public isAdmin: any = null;
   public userUid: string = null;
+  public userName: string = null;
 
   ngOnInit() {
     const idPost = this.route.snapshot.params["id"];
@@ -41,7 +42,8 @@ export class PostComponent implements OnInit {
     this.authService.isAuth().subscribe(auth => {
       if (auth) {
         this.userUid = auth.uid;
-        this.authService.isUserAdmin(this.userUid).subscribe(userRole => {
+        this.userName = auth.displayName;
+        this.authService.isUserAdmin(this.userName).subscribe(userRole => {
           this.isAdmin = Object.assign({}, userRole.roles).hasOwnProperty("admin");
         });
       }

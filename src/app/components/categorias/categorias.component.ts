@@ -19,7 +19,6 @@ export class CategoriasComponent implements OnInit {
   ngOnInit() {
     this.dataApi.getAll('Categoria').subscribe(categories => {
       this.categories = categories;
-      console.log('categorias',this.categories);
     })
   }
 

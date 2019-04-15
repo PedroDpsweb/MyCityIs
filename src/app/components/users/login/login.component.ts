@@ -30,8 +30,10 @@ export class LoginComponent implements OnInit {
     sessionStorage.clear();
     this.authService.loginEmailUser(this.email, this.password)
     .then ((res) =>{
-      let user = this.afAuth.auth.currentUser.uid;
-      sessionStorage.setItem("currentUser",user);
+      let userId = this.afAuth.auth.currentUser.uid;
+      let userName = this.afAuth.auth.currentUser.displayName;
+      sessionStorage.setItem("currentUser",userId);
+      sessionStorage.setItem("currentUserName", userName);
       this.router.navigate(['user/categorias']);
     }).catch( err => this.isError = true);
   }
