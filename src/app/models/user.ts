@@ -19,6 +19,7 @@ export interface UserInterface {
     stars?: Stars;
     desc?: string;
     categories?:any;
+    profilePic?:any;
 
 
 }

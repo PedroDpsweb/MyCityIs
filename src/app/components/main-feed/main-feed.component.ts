@@ -25,18 +25,18 @@ export class MainFeedComponent implements OnInit {
   public userName: string = null;
 
   ngOnInit() {
+    this.userName = sessionStorage.getItem("currentUserName");
     this.selectCategory();
     if(this.category){
-      this.dataApi.getAll(this.category).subscribe(posts => {
+      this.dataApi.getAll(this.category, true).subscribe(posts => {
         this.posts = posts;
-        console.log(this.posts);
       })}else{
         this.route.navigate(['user/categorias']);
       }
     }
 
   selectCategory(){
-      this.category = sessionStorage.getItem('categoria'); 
+      this.category = sessionStorage.getItem('categoria');
   }
 
   getCurrentUser() {

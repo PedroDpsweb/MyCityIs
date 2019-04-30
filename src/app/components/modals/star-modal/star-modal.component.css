@@ -1,0 +1,10 @@
+.starOption{
+  height: 100px;
+  width: 100px;
+  border: solid black 1px;
+}
+
+.selectStars{
+  font-family: 'Gorditas', cursive;
+  font-size: 20px;
+}

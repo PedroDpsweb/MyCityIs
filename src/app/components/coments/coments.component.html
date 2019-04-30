@@ -1,0 +1,20 @@
+<button class="btn btn-success my-3" type="button" data-toggle="collapse" data-target="#sendComent" aria-expanded="false" aria-controls="sendComent" #btnClose>
+    Deja un Comentario
+  </button>
+  <div class="collapse" id="sendComent">
+      <div class="container coments text-center">
+          <input type="text" class="form-control" id="comentInput" placeholder="Escribe tu comentario">
+          <button type="button" class="btn btn-primary mt-2" (click)="sendComentary()">Comenta</button>
+          <br>
+      </div>
+    </div>
+<div class="container" *ngFor="let coment of comentaryList">
+<div class="card border-primary m-3">
+  <div class="card-body text-primary">
+
+    <h5 class="card-title text-left"><a routerLink="/user/profile/{{coment.user}}">{{coment.user}}</a></h5>
+    <p class="card-text"><p>{{coment.text}}</p>
+  </div>
+  <div class="card-footer">{{coment.date}}</div>
+</div>
+</div>

@@ -28,12 +28,14 @@ export class AdminComponent implements OnInit {
   public isAdmin: any = null;
   public userUid: string = null;
   public userName: string = null;
-  
+
+  public selectedCategory :"";
+
 
   ngOnInit() {
     this.getCategories();
     this.getCurrentUser();
-    
+
   }
 
   getCategories(){
@@ -42,8 +44,12 @@ export class AdminComponent implements OnInit {
     })
   }
 
+  selectCategory(categoria){
+ return categoria;
+  }
+
   getListPosts(categoria){
-  
+  this.selectedCategory = categoria;
     this.dataApi.getAll(categoria).subscribe(posts =>{
       this.posts = posts;
     })
@@ -53,7 +59,7 @@ export class AdminComponent implements OnInit {
     const confirmacion = confirm('¿Seguro que quieres eliminar el Post?');
     if (confirmacion){
       this.dataApi.deletePost(postId,category);
-    } 
+    }
   }
 
   onPreUpdatePost(post,category){

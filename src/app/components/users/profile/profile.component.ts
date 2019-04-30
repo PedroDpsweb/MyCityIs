@@ -2,8 +2,9 @@ import { MailControllerService } from "./../../../services/mail.service";
 import { DataApiService } from "src/app/services/data-api.service";
 import { UserInterface } from "./../../../models/user";
 import { AuthService } from "./../../../services/auth.service";
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { ActivatedRoute, Params ,Router } from "@angular/router";
+
 
 @Component({
   selector: "app-profile",
@@ -15,7 +16,8 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private dataService: DataApiService,
     private route: ActivatedRoute,
-    private mail: MailControllerService
+    private mail: MailControllerService,
+    private router: Router
   ) {}
 
   user: UserInterface = {
@@ -25,12 +27,16 @@ export class ProfileComponent implements OnInit {
     roles: {},
     stars: {},
     categories: "",
-    desc: ""
+    desc: "",
+    profilePic:""
   };
 
+  @ViewChild('btnClose') btnClose: ElementRef;
   public userName = "";
   public userId = "";
   public chargedStars = false;
+  public userConf = {};
+  public isUser = false;
 
   ngOnInit() {
     //this.chargedStars = false;
@@ -45,14 +51,20 @@ export class ProfileComponent implements OnInit {
     this.userName = userName;
     this.authService.isAuth().subscribe(user => {
       if (user) {
-        this.dataService.getUserConf(user.displayName).subscribe(userConf => {
-          console.log(userConf);
-          this.user = userConf;
-          this.user.photoUrl = user.photoURL;
-          if(this.chargedStars == false){
-            this.printStars(this.countingStars(this.user.stars));
-            this.chargedStars = true;
-          } 
+        this.userName==user.displayName ? this.isUser=true: this.isUser=false;
+        this.dataService.getUserConf(userName).subscribe(userConf => {
+          if(!userConf){
+              //Redirigimos a 404 si no se encuentra el perfil
+              this.router.navigate(['**'])
+          }else{
+            console.log(userConf);
+            this.user = userConf;
+            this.userConf = userConf;
+            if(this.chargedStars == false){
+              this.printStars(this.countingStars(this.user.stars));
+              this.chargedStars = true;
+            }
+          }
         });
       }
     });
@@ -89,6 +101,8 @@ export class ProfileComponent implements OnInit {
     this.authService.isAuth().subscribe(user => {
       this.userName = user.displayName;
       this.authService.updateUserDescription(this.userName, desc);
+      (<HTMLInputElement>document.getElementById("userNewDesc")).value = "";
+    this.btnClose.nativeElement.click();
     });
   }
 }

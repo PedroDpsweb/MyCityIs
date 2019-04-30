@@ -17,11 +17,13 @@ export class InBoxComponent implements OnInit {
 
   constructor(
     private mailApi: MailControllerService,
-     
+
   ) { }
 
   public inBox = [];
+  public response = {user:"", id:""}
   private user = "";
+
 
   ngOnInit() {
     this.getMyInBox();
@@ -40,6 +42,12 @@ export class InBoxComponent implements OnInit {
 
   deleteMessage(mailId){
     this.mailApi.deleteMail(mailId,this.user)
+  }
+
+  replyMessage(user,id){
+  this.response.user = user;
+  this.response.id = id;
+
   }
 
 }

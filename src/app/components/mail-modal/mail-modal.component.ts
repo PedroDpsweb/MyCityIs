@@ -4,6 +4,7 @@ import { mailInterface } from "./../../models/mail";
 import { DataApiService } from "src/app/services/data-api.service";
 import { Component, OnInit, ViewChild, ElementRef, Input } from "@angular/core";
 import { MailControllerService } from "../../services/mail.service";
+import { ToolsService } from '../../services/tools.service';
 
 @Component({
   selector: "app-mail-modal",
@@ -11,7 +12,10 @@ import { MailControllerService } from "../../services/mail.service";
   styleUrls: ["./mail-modal.component.css"]
 })
 export class MailModalComponent implements OnInit {
-  constructor(private authService: AuthService, public mail: MailControllerService) {}
+  constructor(
+    private authService: AuthService,
+     public mail: MailControllerService,
+     public tools: ToolsService) {}
 
   @ViewChild("btnClose") btnClose: ElementRef;
   @Input("userName") userName: string;
@@ -24,12 +28,14 @@ export class MailModalComponent implements OnInit {
         this.user = user.displayName;
       }
     });
+    console.log("aquiiii", this.userName);
   }
 
   onSaveMail(mailForm: NgForm) {
     let destination = this.userName;
-    mailForm.value.user = this.userName;
+    mailForm.value.user = this.user;
     mailForm.value.id = this.userId;
+    mailForm.value.date = this.tools.getFormatedDate();
     console.log(mailForm);
     this.mail.sendMail(mailForm.value, destination);
     mailForm.resetForm();

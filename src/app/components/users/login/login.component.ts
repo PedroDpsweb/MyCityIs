@@ -32,8 +32,7 @@ export class LoginComponent implements OnInit {
     .then ((res) =>{
       let userId = this.afAuth.auth.currentUser.uid;
       let userName = this.afAuth.auth.currentUser.displayName;
-      sessionStorage.setItem("currentUser",userId);
-      sessionStorage.setItem("currentUserName", userName);
+      this.authService.storageInit(userId, userName);
       this.router.navigate(['user/categorias']);
     }).catch( err => this.isError = true);
   }
@@ -42,6 +41,6 @@ export class LoginComponent implements OnInit {
     this.afAuth.auth.signOut();
   }
 
-  
+
 
 }

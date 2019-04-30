@@ -5,13 +5,24 @@
           <h5 class="card-title">{{post.title}}</h5>
           <p class="card-text">{{post.description}}</p>
           <p class="card-text">{{post.user}}</p>
-          <p class="card-text">{{post.date}}</p>
-          <p class="card-text">Me gusta: {{post.like}}
-              <button type="button" class="btn btn-success"><i class="fas fa-thumbs-up"></i></button>
+          <p class="card-text">{{tools.dateConverter(post.date)}}</p>
+          <p class="card-text">Me gusta: {{likes.count}}
+              <button *ngIf="!like" type="button" class="btn btn-success" (click)="onLike()"><i class="fas fa-thumbs-up"> Me gusta</i></button>
+              <button *ngIf="like" type="button" class="btn btn-light" (click)="onLike()"><i class="fas fa-thumbs-up"></i> Ya no me gusta</button>
           </p>
         </div>
       </div>
-      <div class="controlPanel container mb-5" *ngIf="isAdmin == true; else noOwner">
+
+      <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseComents" aria-expanded="false" aria-controls="collapseComents">
+        Mostrar Comentarios
+      </button>
+      <div class="collapse" id="collapseComents">
+        <div class="container coments text-center">
+          <app-coments [id]="idPost"></app-coments>
+        </div>
+      </div>
+
+      <div class="controlPanel container mb-5" *ngIf="isAdmin == true || isOwner == true; else noOwner">
           <p>ConPermisos</p>
           <button class="btn btn-success mx-2">Update</button>
           <button class="btn btn-danger mx-2" (click)="OnDeletePost(post.id)">Delete</button>
@@ -24,5 +35,7 @@
             <button class="btn btn-secondary mx-2" disabled="true">Delete</button>
           </div>
         </ng-template>
-      
+
 </div>
+
+

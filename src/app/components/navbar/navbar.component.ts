@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {Router} from '@angular/router';
-//DNS de usuarios
-import DNS from '../../../assets/DNS/users.json';
 
 @Component({
   selector: 'app-navbar',
@@ -28,19 +26,23 @@ export class NavbarComponent implements OnInit {
     this.getCurrentUser();
   }
 
- 
 
   getCurrentUser(): any{
     this.authService.isAuth().subscribe(auth => {
       if (auth) {
-        console.log('user logged:',auth.displayName);
-        this.isLogged = true;
-        let nombre = auth.displayName;
+        console.log(auth);
         this.authService.isUserAdmin(auth.displayName).subscribe(userRole => {
-          console.log("a ver" ,Object.assign({}, userRole.roles));
+          if(userRole != undefined){
+          //Si el usuario no es admin no entra aquí
           this.isAdmin = Object.assign({}, userRole.roles).hasOwnProperty("admin");
-          this.userName = sessionStorage.getItem("currentUserName");
-        })
+        }
+        this.userName = auth.displayName;
+        this.userUid = auth.uid
+        if(this.userName){
+          this.isLogged = true;
+          this.authService.storageInit(this.userUid,this.userName);
+        }
+      })
   }else{
       console.log('not logged');
       this.isLogged = false;
@@ -49,6 +51,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onLogout(){
+    this.isAdmin = false;
     sessionStorage.clear();
     this.authService.logoutUser();
   }
@@ -56,7 +59,6 @@ export class NavbarComponent implements OnInit {
   searchUserByName(){
     let search = (<HTMLInputElement>document.getElementById('search')).value;
     this.router.navigate([`user/profile/${search}`]);
-    //this.router.navigate([`user/profile/${DNS[search]}`]);
   }
 
 }

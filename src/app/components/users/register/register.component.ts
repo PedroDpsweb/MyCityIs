@@ -41,6 +41,8 @@ export class RegisterComponent implements OnInit {
                 photoURL: this.inputImageUser.nativeElement.value
               })
               .then(() => {
+                this.authService.updateUserProfilePic(user.displayName, user.photoURL);
+                this.welcomeMail(this.userName);
                 this.router.navigate(["/"]);
               })
               .catch(error => console.log("error", error));
@@ -50,22 +52,28 @@ export class RegisterComponent implements OnInit {
       .catch(err => console.log("err", err.message));
   }
 
+  /** - Capturamos el evento de la subida de imagen
+   *  - Subimos la imagen a FireStorage
+   *  - Guardamos la URL en un campo oculto dle HTML
+   */
   onUpload(e) {
     console.log("subiendo..");
     const id = Math.random()
       .toString(36)
       .substring(2);
     const file = e.target.files[0];
-    const filePath = `upload/profile_${id}`;
+    const filePath = `profile/profile_${id}`;
     const ref = this.fireStorage.ref(filePath);
     const task = this.fireStorage.upload(filePath, file);
     this.uploadPercent = task.percentageChanges();
     task
       .snapshotChanges()
-      .pipe(finalize(() => (this.urlImage = ref.getDownloadURL())))
+      .pipe(finalize(() => (
+        //Campo oculto del html, aquí se queda guardada la URL de la imagen
+        this.urlImage = ref.getDownloadURL())))
       .subscribe();
-      this.welcomeMail(this.userName);
   }
+
 
   welcomeMail(destination) {
     let welcome = {

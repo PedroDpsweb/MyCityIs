@@ -12,24 +12,32 @@
       <div class="modal-body">
         <form name="formPost" #formPost="ngForm" (ngSubmit)="onSavePost(formPost)">
             <input type="hidden" name="id" [(ngModel)]="this.dataApiService.selectedPost.id" >
-            <input type="hidden" name="userUid" [value]="userUid" >  
+            <input type="hidden" name="userUid" [value]="userUid" >
           <div class="form-group">
             <label for="Titulo">Titulo</label>
             <input type="text" class="form-control" name="title" placeholder="Titulo del Post" [(ngModel)]="this.dataApiService.selectedPost.title" />
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="URL">URL</label>
             <input type="text" class="form-control" name="photoUrl" placeholder="URL" [(ngModel)]="this.dataApiService.selectedPost.photoUrl" />
+          </div> -->
+          <div class="form-group">
+            <div class="form-group">
+              <label for="upload">Imágen Post</label>
+              <input type="file" class="form-control-file" aria-describedby="fileHelpId" accept=".png, .jpg" (change)="onUpload($event)">
+              <small id="fileHelpId" class="form-text text-muted">Sube tu imágen</small>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped bg-success" role="progress"
+              [style.width]="(uploadPercent | async ) + '%'"></div>
+              <br>
+            </div>
+            <input id="photoUrl" type="hidden" name="photoUrl" [value]="urlImage | async">
           </div>
           <div class="form-group">
             <label for="Descripción">Descripción</label>
             <input type="text" class="form-control" name="description" placeholder="Descripción" [(ngModel)]="this.dataApiService.selectedPost.description" />
           </div>
-          <div class="form-group">
-            <label for="fecha">Fecha</label>
-            <input type="text" class="form-control" name="date" placeholder="12/12/12" [(ngModel)]="this.dataApiService.selectedPost.date" />
-          </div>
-      
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Save changes</button>

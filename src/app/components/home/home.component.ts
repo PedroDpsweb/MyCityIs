@@ -25,8 +25,13 @@ export class HomeComponent implements OnInit {
   }else{
       this.isLogged = false;
     }
-      
+
   });
+  }
+
+  chechAdmin(){
+    //La aplicación comprueba si hay usuario admin, si no lo hay lo crea
+
   }
 
 }

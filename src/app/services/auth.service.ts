@@ -22,6 +22,7 @@ export class AuthService {
       this.afsAuth.auth.createUserWithEmailAndPassword(email,password)
     .then(userData => {
       resolve(userData),
+      console.log("será aquí?", userData.user);
       this.updateUserData(userData.user, name)
     }).catch(err => console.log(reject(err)))
   });
@@ -33,7 +34,7 @@ export class AuthService {
       err => reject(err));
     })
   }
-  
+
   logoutUser(){
     return this.afsAuth.auth.signOut();
   }
@@ -41,7 +42,7 @@ export class AuthService {
     return this.afsAuth.authState.pipe(map(auth => auth));
   }
 
-  updateUserData(user, userName, desc = ""){
+  updateUserData(user, userName){
     let inBox = this.mailsCollection;
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userName}`);
     const data : UserInterface = {
@@ -57,10 +58,11 @@ export class AuthService {
         //revisar este ROL mas adelante
         user:true
       },
+      profilePic:"",
       categories:[]
-      
-      
-      
+
+
+
     }
     return userRef.set(data, {merge:true})
   }
@@ -68,14 +70,29 @@ export class AuthService {
   updateUserDescription(userName, desc){
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userName}`);
     const data : UserInterface = {
-      desc:desc, 
+      desc:desc,
     }
     console.log("llega aqui")
+    return userRef.set(data, {merge:true})
+  }
+
+  updateUserProfilePic(userName, URL){
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userName}`);
+    const data : UserInterface = {
+      profilePic:URL,
+    }
     return userRef.set(data, {merge:true})
   }
 
   isUserAdmin(userName){
     return this.afs.doc<UserInterface>(`users/${userName}`).valueChanges();
   }
+
+  storageInit(userId, userName){
+    sessionStorage.setItem("currentUser",userId);
+      sessionStorage.setItem("currentUserName", userName);
+  }
+
+
 
 }

@@ -14,13 +14,16 @@
         <div class="card-body">
             <button type="button" class="btn btn-danger" (click)="deleteMessage(message.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
             <h1>{{ message.title }} <span *ngIf="!message.leido" class="badge badge-secondary">New</span></h1>
-          <div class="alert alert-primary" role="alert">{{ message.body }}</div>
+          <div class="alert alert-primary" role="alert">{{ message.body}}</div>
           <div class="row">
-            <div class="col-6"><p>from {{message.user}}</p></div>
+            <div class="col-6"><p>from {{message.user}} <button type="button" class="btn btn-success" (click)="replyMessage(message.user, message.id)" data-toggle="modal" data-target="#modalMail">Responder a {{message.user}}</button></p></div>
             <div class="col-6">recibido el dia: {{message.date}}</div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <app-mail-modal [userName]="response.user" [userId]="response.id"></app-mail-modal>
+
+
 

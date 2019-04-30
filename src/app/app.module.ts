@@ -35,6 +35,8 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
 
 //Pipes
 import { SanitizePipe } from './pipes/sanitize.pipe';
+import { StarModalComponent } from './components/modals/star-modal/star-modal.component';
+import { ComentsComponent } from './components/coments/coments.component';
 
 
 
@@ -59,6 +61,8 @@ import { SanitizePipe } from './pipes/sanitize.pipe';
     AdminComponent,
     SanitizePipe,
     InBoxComponent,
+    StarModalComponent,
+    ComentsComponent,
   ],
   imports: [
     BrowserModule,
