@@ -3,6 +3,7 @@ import { DataApiService } from 'src/app/services/data-api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import {Router} from '@angular/router';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
+import { ToolsService } from '../../services/tools.service';
 
 @Component({
   selector: 'app-main-feed',
@@ -14,13 +15,14 @@ export class MainFeedComponent implements OnInit {
   constructor(
     private dataApi: DataApiService,
     private authService :AuthService,
-    private route : Router
+    private route : Router,
+    public tools: ToolsService
     ) { }
 
   public posts = [];
   public post = '';
   private category= '';
-  public isAdmin: any = null;
+  public isAdmin = this.authService.admin;
   public userUid: string = null;
   public userName: string = null;
 
@@ -37,17 +39,6 @@ export class MainFeedComponent implements OnInit {
 
   selectCategory(){
       this.category = sessionStorage.getItem('categoria');
-  }
-
-  getCurrentUser() {
-    this.authService.isAuth().subscribe(auth => {
-      if (auth) {
-        this.userUid = auth.uid;
-        this.authService.isUserAdmin(this.userUid).subscribe(userRole => {
-          this.isAdmin = Object.assign({}, userRole.roles).hasOwnProperty("admin");
-        });
-      }
-    });
   }
 
 }

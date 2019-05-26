@@ -8,7 +8,6 @@ import { environment } from "../environments/environment";
 //Componentes
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { ComponentsComponent } from "./components/components.component";
 import { ListaPostsComponent } from "./components/lista-posts/lista-posts.component";
 import { PostComponent } from "./components/post/post.component";
 import { HomeComponent } from "./components/home/home.component";
@@ -38,13 +37,17 @@ import { SanitizePipe } from './pipes/sanitize.pipe';
 import { StarModalComponent } from './components/modals/star-modal/star-modal.component';
 import { ComentsComponent } from './components/coments/coments.component';
 
+//Angular material
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ComponentsComponent,
     ListaPostsComponent,
     PostComponent,
     HomeComponent,
@@ -70,7 +73,8 @@ import { ComentsComponent } from './components/coments/coments.component';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    BrowserAnimationsModule
   ],
   providers: [AngularFireAuth, AngularFirestore],
   bootstrap: [AppComponent]

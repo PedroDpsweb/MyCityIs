@@ -1,41 +1,52 @@
-<div class="container mt-5 w-75 text-center">
-    <div class="card mx-auto w-100">
+<div class="wrapper">
+<div class="container mt-5 w-75">
+    <div class="card mx-auto w-100 sombra2">
         <img class="card-img-top" src="{{post.photoUrl}}" alt="{{post.title}}">
         <div class="card-body">
-          <h5 class="card-title">{{post.title}}</h5>
+          <div class="row">
+            <div class="col-4"><h5 class="card-title">{{post.title}}</h5></div>
+            <div class="col-4">Posteado por :<a routerLink="/user/profile/{{post.user}}"> {{post.user}}</a></div>
+            <div class="col-4">{{tools.dateConverter(post.date)}}</div>
+          </div> 
           <p class="card-text">{{post.description}}</p>
-          <p class="card-text">{{post.user}}</p>
-          <p class="card-text">{{tools.dateConverter(post.date)}}</p>
-          <p class="card-text">Me gusta: {{likes.count}}
-              <button *ngIf="!like" type="button" class="btn btn-success" (click)="onLike()"><i class="fas fa-thumbs-up"> Me gusta</i></button>
-              <button *ngIf="like" type="button" class="btn btn-light" (click)="onLike()"><i class="fas fa-thumbs-up"></i> Ya no me gusta</button>
+          <p class="card-text"><i class="fas fa-heart count"></i> {{likes.count}}
+              <button *ngIf="!like" type="button" class="btn btn-light onlike" (click)="onLike()"><i class="fas fa-thumbs-up"></i></button>
+              <button *ngIf="like" type="button" class="btn btn-light" (click)="onLike()"><i class="fas fa-thumbs-down"></i></button>
           </p>
         </div>
-      </div>
 
-      <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseComents" aria-expanded="false" aria-controls="collapseComents">
-        Mostrar Comentarios
-      </button>
-      <div class="collapse" id="collapseComents">
-        <div class="container coments text-center">
-          <app-coments [id]="idPost"></app-coments>
-        </div>
-      </div>
-
-      <div class="controlPanel container mb-5" *ngIf="isAdmin == true || isOwner == true; else noOwner">
-          <p>ConPermisos</p>
+        <div class="controlPanel container mb-5 text-center" *ngIf="isAdmin == true || isOwner == true; else noOwner">
           <button class="btn btn-success mx-2">Update</button>
-          <button class="btn btn-danger mx-2" (click)="OnDeletePost(post.id)">Delete</button>
+          <button type="submit" class="btn btn-danger mx-2" (click)="OnDeletePost(post.id)">Eliminar Post <i class="fa fa-trash" aria-hidden="true"></i></button>
         </div>
+
+        <button class="btn btn-outline-dark my-3" type="button" data-toggle="collapse" data-target="#collapseComents" aria-expanded="false" aria-controls="collapseComents">
+            Mostrar Comentarios
+          </button>
+          
+
+        <div class="collapse" id="collapseComents">
+            <div class="container coments text-center">
+              <app-coments [id]="idPost"></app-coments>
+            </div>
+          </div>
+
+
+      </div>
+
+      
+
+      
 
       <ng-template #noOwner>
-          <div class="controlPanel container mb-5">
+          <div class="controlPanel container mb-5 d-none">
             <p>Sin Permisos</p>
             <button class="btn btn-secondary mx-2" disabled="true">Update</button>
             <button class="btn btn-secondary mx-2" disabled="true">Delete</button>
           </div>
         </ng-template>
 
+</div>
 </div>
 
 

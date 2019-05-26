@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Input} from '@angular/core';
 import { BrowserStack } from 'protractor/built/driverProviders';
 import { DataApiService } from '../../../services/data-api.service';
+import { AuthService } from '../../../services/auth.service';
+
 
 @Component({
   selector: "app-star-modal",
@@ -9,7 +11,8 @@ import { DataApiService } from '../../../services/data-api.service';
 })
 export class StarModalComponent implements OnInit {
   constructor(
-    private dataApiService : DataApiService
+    private dataApiService : DataApiService,
+    private autService: AuthService
   ) {}
 
   public selectedOption = "";
@@ -28,7 +31,7 @@ export class StarModalComponent implements OnInit {
   @ViewChild('btnClose') btnClose: ElementRef;
 
   ngOnInit() {
-   
+
   }
 
   showDescription(stars){
@@ -54,7 +57,7 @@ export class StarModalComponent implements OnInit {
       desc.innerHTML = this.option5
       break;
     }
-    
+
   }
 
   selectOption(value,option) {
@@ -74,22 +77,24 @@ export class StarModalComponent implements OnInit {
   }
 
   puntuation(){
-    let user = sessionStorage.getItem('currentUserName');
+    let user = this.userName;
     if(this.userRated == false){
     this.userConf.stars.userStar.push(user);
-    this.userConf.stars.totalStars = parseInt(this.userConf.stars.totalStars) + this.selectedOption;
+    this.userConf.stars.totalStars = parseInt(this.userConf.stars.totalStars) + parseInt(this.selectedOption);
     this.dataApiService.updateUserStars(this.userConf, this.userName);
     this.btnClose.nativeElement.click();
     }else{
       console.log("este usuario ya ha votado");
     }
-    
+
   }
 
   checkPuntuation(){
-    let user = sessionStorage.getItem('currentUserName');
+    let user = this.userName;
     if(this.userConf.stars.userStar.includes(user)){
       this.userRated = true;
+  }else{
+    this.userRated = false;
   }
 }
 }

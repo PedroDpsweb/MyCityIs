@@ -5,6 +5,7 @@ import { Observable, pipe } from "rxjs";
 import { take, map, tap } from "rxjs/operators";
 import { AngularFireAuth } from "@angular/fire/auth";
 import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
+import { truncate } from 'fs';
 
 @Injectable({
   providedIn: "root"
@@ -15,31 +16,24 @@ export class AdminGuardGuard implements CanActivate {
     private router: Router,
     private authService: AuthService,
     private afs: AngularFirestore
-      ) 
+      )
       {}
 
-  
+
   private isAdmin: any = null;
   private user: string = "";
 
    canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree  {
-    this.user = sessionStorage.getItem("currentUserName");
-    return this.authService.isUserAdmin(this.user).pipe(map(result => {
-    if(result.roles.admin){
-     return result.roles.admin;
+
+    if(this.authService.admin==true){
+      return true
     }else{
       this.router.navigate(['']);
-      
     }
-   
-    }));
+  }
 
 
-   
 
-    }
-
-    
   }

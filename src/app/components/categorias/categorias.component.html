@@ -1,16 +1,41 @@
+<div class="wrapper">
 <div class="container-fluid mt-5 text-center">
   <h1 class="text-center mb-5">Tus Categorías</h1>
 
+  <div *ngIf="MyCategories==null" class="alert alert-danger" role="alert">
+   No has elegido ninguna categoría
+  </div>
+
   <div class="row mb-5">
-      <div class="col-4 categoria px-3 mb-3" *ngFor="let category of categories">
+    <div class="col-4 categoria px-3 pb-3" *ngFor="let category of MyCategories">
+      <div class="text-center m-5"><button type="button" class="btn btn-dark btn-sombra" (click)="removeMyCategory(category.titulo)"><i class="fas fa-arrow-alt-circle-down"></i> Eliminar {{category.titulo}} de mis Categorias</button></div>
+      <a (click)="setCategoria()" routerLink="../mainFeed">
+        <div class="child sombra3" [style.background-image]="'url(' + category.ruta + ')'">
+          <span><p #asunto>{{category.titulo}}</p></span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <button class="btn btn-dark btn-sombra" (click)="showAllCategories()">Ver todas las categorias</button>
+
+  <div *ngIf='allCategories==true'>
+  <h1 class="text-center my-5">Todas las  Categorías</h1>
+
+  <div class="row">
+      <div class="col-4 categoria px-3 pb-3" *ngFor="let category of categories">
+        <div class="text-center m-5"><button type="button" class="btn btn-dark btn-sombra" (click)="addMyCategory(category.titulo)"><i class="fas fa-arrow-alt-circle-down"></i> Añadir {{category.titulo}} a mis Categorias</button></div>
         <a (click)="setCategoria()" routerLink="../mainFeed">
-          <div class="child" [style.background-image]="'url(' + category.ruta + ')'">
+          <div class="child sombra3" [style.background-image]="'url(' + category.ruta + ')'">
             <span><p #asunto>{{category.titulo}}</p></span>
           </div>
         </a>
       </div>
     </div>
+
+  </div>
     
-  <button type="button" class="btn btn-primary">Ver todas las categorias</button>
+  
+</div>
 </div>
 

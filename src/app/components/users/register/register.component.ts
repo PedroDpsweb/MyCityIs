@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import { Component, OnInit, ElementRef, ViewChild , Output , EventEmitter } from "@angular/core";
 import { AuthService } from "../../../services/auth.service";
 import { Router } from "@angular/router";
 import { AngularFireStorage } from "@angular/fire/storage";
@@ -28,29 +28,36 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {}
 
-  onAddUser() {
-    this.authService
-      .registerUser(this.email, this.password, this.userName)
-      .then(res => {
-        this.authService.isAuth().subscribe(user => {
-          if (user) {
-            console.log("userActual", user);
-            user
-              .updateProfile({
-                displayName: this.userName,
-                photoURL: this.inputImageUser.nativeElement.value
-              })
-              .then(() => {
-                this.authService.updateUserProfilePic(user.displayName, user.photoURL);
-                this.welcomeMail(this.userName);
-                this.router.navigate(["/"]);
-              })
-              .catch(error => console.log("error", error));
-          }
-        });
-      })
-      .catch(err => console.log("err", err.message));
+  registeringUser(form, img){
+  form.profilePic = img.value;
+  this.authService.regUser(form);
+  this.welcomeMail(form.userName);
+  console.log("acabo");
   }
+
+  // onAddUser() {
+  //   this.authService
+  //     .registerUser(this.email, this.password, this.userName)
+  //     .then(res => {
+  //       this.authService.isAuth().subscribe(user => {
+  //         if (user) {
+  //           console.log("userActual", user);
+  //           user
+  //             .updateProfile({
+  //               displayName: this.userName,
+  //               photoURL: this.inputImageUser.nativeElement.value
+  //             })
+  //             .then(() => {
+  //               this.authService.updateUserProfilePic(user.displayName, user.photoURL);
+  //               this.welcomeMail(this.userName);
+  //               this.router.navigate(["/"]);
+  //             })
+  //             .catch(error => console.log("error", error));
+  //         }
+  //       });
+  //     })
+  //     .catch(err => console.log("err", err.message));
+  // }
 
   /** - Capturamos el evento de la subida de imagen
    *  - Subimos la imagen a FireStorage

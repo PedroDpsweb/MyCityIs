@@ -31,11 +31,6 @@ export class ModalComponent implements OnInit {
   urlImage: Observable<String>;
 
   ngOnInit() {
-    console.log("MODALLL", this.userName);
-    this.authService.isAuth().subscribe(user => {
-      if(user){
-        this.user = user.displayName;
-      }})
   }
 
   onSavePost(postForm:NgForm){
@@ -44,10 +39,8 @@ export class ModalComponent implements OnInit {
     if (postForm.value.id === null ){
       postForm.value.like = likeTemplate;
       postForm.value.date = this.tools.dateConverter(this.tools.getFormatedDate());
-      postForm.value.user = this.userName;
+      postForm.value.user = this.authService.user.name;
       postForm.value.photoUrl =  (<HTMLInputElement>document.getElementById("photoUrl")).value;
-      console.log("POSTFORM", postForm.value);
-
       this.dataApiService.addPost(postForm.value);
     }else{
       this.dataApiService.updatePost(postForm.value,category);;

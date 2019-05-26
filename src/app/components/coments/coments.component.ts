@@ -1,6 +1,8 @@
 import { Component, OnInit, Input,ViewChild, ElementRef } from '@angular/core';
 import { MailControllerService } from '../../services/mail.service';
 import { ToolsService } from '../../services/tools.service';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 
 @Component({
@@ -12,18 +14,22 @@ export class ComentsComponent implements OnInit {
 
   constructor(
     private coments : MailControllerService,
-    private tools : ToolsService
+    private tools : ToolsService,
+    public authService :AuthService
   ) { }
 
   @ViewChild('btnClose') btnClose: ElementRef;
   @Input('id') id: string;
   private category = sessionStorage.getItem("categoria");
   private coment = {
-    user: sessionStorage.getItem("currentUserName"),
+    user: JSON.parse(sessionStorage.getItem('userInfo')).name,
     text:"",
-    date:""
+    date:"",
+    img:""
   }
-  public comentaryList = []
+  public comentaryList = [];
+  private MyInfo = this.authService.getUserInfo();
+  comentReady = false;
 
   ngOnInit() {
     this.getComents();
@@ -32,20 +38,24 @@ export class ComentsComponent implements OnInit {
   getComents(){
     this.coments.getAll(this.category, this.id).subscribe(data => {
       this.comentaryList = data;
-      console.log("esto recibo",data);
     })
   }
 
   sendComentary(){
-    console.log("comentario enviado");
     this.coment.text = (<HTMLInputElement>document.getElementById("comentInput")).value;
     this.coment.date = this.tools.getFormatedDate();
-    // this.authService.isAuth().subscribe(user => {
-    //   this.userName = user.displayName;
+    this.coment.img = this.MyInfo.profilePic;
       this.coments.send(this.coment, this.category, this.id);
       (<HTMLInputElement>document.getElementById("comentInput")).value = "";
       this.btnClose.nativeElement.click();
 
+  }
+
+  checkComent(){
+    
+    let coment = this.coment.text = (<HTMLInputElement>document.getElementById("comentInput")).value;
+    console.log(coment);
+    coment!=""?this.comentReady=true:this.comentReady=false;
   }
 
 }

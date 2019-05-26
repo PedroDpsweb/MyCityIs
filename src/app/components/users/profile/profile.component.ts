@@ -6,6 +6,8 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ActivatedRoute, Params ,Router } from "@angular/router";
 
 
+
+
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
@@ -13,7 +15,7 @@ import { ActivatedRoute, Params ,Router } from "@angular/router";
 })
 export class ProfileComponent implements OnInit {
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private dataService: DataApiService,
     private route: ActivatedRoute,
     private mail: MailControllerService,
@@ -32,45 +34,62 @@ export class ProfileComponent implements OnInit {
   };
 
   @ViewChild('btnClose') btnClose: ElementRef;
+  public profilePic="";
   public userName = "";
+  public userDesc = "";
+  public email = "";
+  public categories = "";
   public userId = "";
+  public totalStars = "";
   public chargedStars = false;
   public userConf = {};
   public isUser = false;
+  private userRef;
 
   ngOnInit() {
     //this.chargedStars = false;
     //Nos suscribimos a los parametros de la URL para cargar el perfil cuanto cambie la URL sin cambiar el componente
     this.route.params.subscribe((params: Params) => {
-      this.profileCharge();
+      this.profileCharge(params);
     });
   }
 
-  profileCharge() {
-    const userName = this.route.snapshot.params["name"];
-    this.userName = userName;
-    this.authService.isAuth().subscribe(user => {
-      if (user) {
-        this.userName==user.displayName ? this.isUser=true: this.isUser=false;
-        this.dataService.getUserConf(userName).subscribe(userConf => {
-          if(!userConf){
-              //Redirigimos a 404 si no se encuentra el perfil
-              this.router.navigate(['**'])
-          }else{
-            console.log(userConf);
-            this.user = userConf;
-            this.userConf = userConf;
-            if(this.chargedStars == false){
-              this.printStars(this.countingStars(this.user.stars));
-              this.chargedStars = true;
-            }
-          }
-        });
-      }
-    });
+  profileCharge(params) {
+    if(!params && this.authService.logged == true){
+      this.profilePic = this.authService.user.profilePic;
+      this.userName = this.authService.user.name;
+      this.userDesc = this.authService.user.desc;
+      this.email = this.authService.user.email;
+      this.categories = this.authService.user.categories;
+      this.totalStars = this.authService.user.stars.totalStars
+    }
+    else if(params){
+      const userName = this.route.snapshot.params["name"];
+      this.userName = userName;
+      this.dataService.getUserConf(userName).subscribe((data => {
+      this.userConf = {
+        stars:data.stars
+      };
+      this.profilePic = data.profilePic;
+      this.userName =data.name;
+      this.userDesc = data.desc;
+      this.email = data.email;
+      this.categories = data.categories;
+      this.totalStars = data.stars.totalStars;
+      this.printStars(this.countingStars(data.stars));
+      this.chargedStars = true;
+      }))
+
+
+
+    }else{
+      this.router.navigate(['/'])
+
+    }
   }
 
   countingStars(starConf) {
+    console.log(starConf);
     //función para representar tu puntuación con estrellas
     let counter = starConf.userStar.length;
     let total = parseInt(starConf.totalStars, 10);
@@ -81,6 +100,8 @@ export class ProfileComponent implements OnInit {
 
   printStars(numStar) {
     let starCont = document.getElementById("starCont");
+    console.log(starCont);
+    starCont.innerHTML="";
       for (let i = 0; i < 5; i++) {
         if (i < numStar) {
           let star = document.createElement("i");
@@ -98,11 +119,18 @@ export class ProfileComponent implements OnInit {
 
   changeDesc(){
     let desc = (<HTMLInputElement>document.getElementById("userNewDesc")).value;
-    this.authService.isAuth().subscribe(user => {
-      this.userName = user.displayName;
-      this.authService.updateUserDescription(this.userName, desc);
+      this.authService.updateUserDescription(this.authService.user.name, desc);
       (<HTMLInputElement>document.getElementById("userNewDesc")).value = "";
     this.btnClose.nativeElement.click();
-    });
+
+  }
+
+
+  deleteUser(){
+   let delUser = confirm(" ¿ Estas seguro que quieres borrar esta cuenta de Usuario ?");
+   if(delUser){
+     this.userRef.delete();
+     this.router.navigate(["/"]);
+   }
   }
 }

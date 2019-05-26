@@ -1,98 +1,156 @@
-import { UserInterface } from './../models/user';
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { map } from 'rxjs/operators';
-import { auth } from 'firebase/app';
-import {AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection} from '@angular/fire/firestore';
-import { mailInterface } from '../models/mail';
+import { UserInterface } from "./../models/user";
+import { Injectable } from "@angular/core";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { map } from "rxjs/operators";
+import { auth } from "firebase/app";
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from "@angular/fire/firestore";
+import { mailInterface } from "../models/mail";
+import { Router } from "@angular/router";
+import { ToolsService } from './tools.service';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AuthService {
-
   constructor(
     private afsAuth: AngularFireAuth,
-    private afs: AngularFirestore) { }
-    private mailsCollection : AngularFirestoreCollection<mailInterface>;
+     private afs: AngularFirestore,
+     private tools: ToolsService,
+     private router: Router
+    ) {}
+  private mailsCollection: AngularFirestoreCollection<mailInterface>;
+  public logged = false;
+  public admin = false;
+  public user //usuario actual
+  public canLog;
 
-  registerUser(email: string, password: string, name: string){
-    return new Promise((resolve,reject) => {
-      this.afsAuth.auth.createUserWithEmailAndPassword(email,password)
-    .then(userData => {
-      resolve(userData),
-      console.log("será aquí?", userData.user);
-      this.updateUserData(userData.user, name)
-    }).catch(err => console.log(reject(err)))
-  });
-}
-  loginEmailUser(email: string, pass: string){
-    return new Promise((resolve, reject) =>{
-      this.afsAuth.auth.signInWithEmailAndPassword(email, pass)
-      .then(userData => resolve(userData),
-      err => reject(err));
-    })
-  }
-
-  logoutUser(){
-    return this.afsAuth.auth.signOut();
-  }
-  isAuth() {
-    return this.afsAuth.authState.pipe(map(auth => auth));
-  }
-
-  updateUserData(user, userName){
-    let inBox = this.mailsCollection;
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userName}`);
-    const data : UserInterface = {
-      name: userName,
-      id:user.uid,
-      email: user.email,
-      desc:"",
-      stars:{
-        totalStars:"0",
-        userStar:[]
+  regUser(userData) {
+    console.log(userData);
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userData.userName}`);
+    const data: UserInterface = {
+      name: userData.userName,
+      password: this.tools.encryptPlainText(userData.password),
+      email: userData.email,
+      desc: "",
+      stars: {
+        totalStars: "0",
+        userStar: []
       },
       roles: {
-        //revisar este ROL mas adelante
-        user:true
+        user: true
       },
-      profilePic:"",
-      categories:[]
-
-
-
-    }
-    return userRef.set(data, {merge:true})
+      profilePic: userData.profilePic,
+      categories: []
+    };
+    userRef.set(data);
+    this.LogIn(data.name, userData.password);
   }
 
-  updateUserDescription(userName, desc){
+  LogIn(user, pass) {
+    let postDoc = this.afs.doc(`users/${user}`);
+    postDoc.snapshotChanges().subscribe(data => {
+      this.user = data.payload.data();
+      let decryptedpass=this.tools.decryptPlainText(this.user.password)
+      console.log("stamos aqui", pass, "diria que esto no sale", decryptedpass);
+      if(pass==decryptedpass){
+        this.canLog = true;
+        this.logged = true;
+        this.storageInit(this.user);
+        this.isUserAdmin();
+        this.navigateAfterLogin();
+      }else{
+        this.canLog = false;
+      }
+      
+    });
+
+    console.log("canLog?", this.canLog);
+
+    return this.canLog;
+  }
+
+  logoutUser() {
+    this.logged = false;
+    this.admin = false;
+  }
+
+  deleteUser(userName){
+    let delUser= this.afs.doc(`users/${userName}`);
+    delUser.delete();
+  }
+
+  updateUserDescription(userName, desc) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userName}`);
-    const data : UserInterface = {
-      desc:desc,
-    }
-    console.log("llega aqui")
-    return userRef.set(data, {merge:true})
+    const data: UserInterface = {
+      desc: desc
+    };
+    console.log("llega aqui");
+    return userRef.set(data, { merge: true });
   }
 
-  updateUserProfilePic(userName, URL){
+  updateUserCategory(userName, categories){
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userName}`);
-    const data : UserInterface = {
-      profilePic:URL,
+    console.log(userName);
+    const data: UserInterface = {
+      categories: categories
+    };
+    console.log("categorias añadidas");
+    return userRef.set(data, { merge: true });
+  }
+
+  updateUserProfilePic(userName, URL) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userName}`);
+    const data: UserInterface = {
+      profilePic: URL
+    };
+    return userRef.set(data, { merge: true });
+  }
+
+  isUserAdmin() {
+    this.user.roles.admin ? (this.admin = true) : (this.admin = false);
+  }
+
+  storageInit(userInfo) {
+    sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+  }
+
+  getUserInfo() {
+    return JSON.parse(sessionStorage.getItem("userInfo"));
+  }
+
+  getAllUsers(){
+    let allUsers = this.afs.collection('users');;
+    return allUsers.snapshotChanges()
+    .pipe( map( changes => {
+      return changes.map( action => {
+        const data = action.payload.doc.data();
+        return data;
+      })
+    } ))
+  }
+
+  getOneUser(userName){
+    let user = this.afs.doc(`users/${userName}`);
+    return user.snapshotChanges()
+    .pipe(map(action =>{
+      if (action.payload.exists === false){
+        return null;
+      }else{
+        const data = action.payload.data();
+        return data;
+      }
+    } ))
+  }
+
+  navigateAfterLogin(){
+    let login="/login";
+    let register="/register";
+    let path = window.location.pathname;
+    if(path==login || path==register){
+      console.log("pasa por el navigate", window.location.pathname );
+     this.router.navigate(['user/categorias']);
     }
-    return userRef.set(data, {merge:true})
   }
-
-  isUserAdmin(userName){
-    return this.afs.doc<UserInterface>(`users/${userName}`).valueChanges();
-  }
-
-  storageInit(userId, userName){
-    sessionStorage.setItem("currentUser",userId);
-      sessionStorage.setItem("currentUserName", userName);
-  }
-
-
 
 }

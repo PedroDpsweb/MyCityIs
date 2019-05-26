@@ -12,11 +12,12 @@
   <div class="row">
     <div class="col-12" *ngFor="let message of inBox">
         <div class="card-body">
-            <button type="button" class="btn btn-danger" (click)="deleteMessage(message.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
-            <h1>{{ message.title }} <span *ngIf="!message.leido" class="badge badge-secondary">New</span></h1>
+            
+            <h1>{{ message.title }} <span *ngIf="!message.leido" class="badge badge-secondary">New </span> <button type="button" class="btn btn-danger mx-3" (click)="deleteMessage(message.id)"><i class="fa fa-trash" aria-hidden="true"></i></button></h1>
+            
           <div class="alert alert-primary" role="alert">{{ message.body}}</div>
           <div class="row">
-            <div class="col-6"><p>from {{message.user}} <button type="button" class="btn btn-success" (click)="replyMessage(message.user, message.id)" data-toggle="modal" data-target="#modalMail">Responder a {{message.user}}</button></p></div>
+            <div class="col-6"><p>from {{message.user}} <button type="button" class="btn btn-outline-dark" (click)="replyMessage(message.user, message.id)" data-toggle="modal" data-target="#modalMail">Responder a {{message.user}}</button></p></div>
             <div class="col-6">recibido el dia: {{message.date}}</div>
           </div>
         </div>

@@ -3,23 +3,22 @@
     <div class="offset-lg-4 col-lg-4 col-sm-6 col-12 main-section text-center card">
       <div class="row">
         <div class="col-lg-12 col-sm-12 col-12 profile-header">
-          <img src={{user.profilePic}} class="rounded-circle img-thumbnail mt-4 mb-2" alt="profile">
-
+          <img src={{profilePic}} class="rounded-circle img-thumbnail mt-4 mb-2" alt="profile">
         </div>
       </div>
       <div class="row user-details">
         <div class="col-12">
-            <h2 class="mt-3">{{user.name}}</h2>
+            <h2 class="mt-3">{{userName}}</h2>
             <p>
-              {{user.email}}
+                {{email}}
             </p>
           <h3 class="my-3">Categorias</h3>
-          <div class="alert alert-primary" role="alert" *ngFor='let category of user.categories'>
+          <div class="alert alert-primary" role="alert" *ngFor='let category of authService.user.categories'>
             {{category}}
           </div>
 
           <hr>
-          <h4 class="my-3">Estado <button *ngIf="isUser" class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" #btnClose>
+          <h4 class="my-3">Estado<button *ngIf="userName==authService.user.name" class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" #btnClose>
             <i class="fas fa-edit"></i>
           </button></h4>
 
@@ -32,14 +31,16 @@
 
 
 
-          <div class="col-12">{{user.desc}}</div>
+          <div class="col-12">{{userDesc}}</div>
           <h4 class="my-3">Estrellas</h4>
           <div id="starCont" class="col-12">
-            <p>Puntos totales: {{user.stars.totalStars}}</p>
+            <p>Puntos totales: {{totalStars}}</p>
           </div>
           <button type="button" class="btn btn-primary my-2" data-toggle="modal" data-target="#starModal"><i class="far fa-star"></i></button>
           <br>
-          <button *ngIf="!isUser" type="button" class="btn btn-primary my-2" data-toggle="modal" data-target="#modalMail">Mensaje Privado</button>
+          <button *ngIf="userName!=authService.user.name" type="button" class="btn btn-primary my-2" data-toggle="modal" data-target="#modalMail">Mensaje Privado</button>
+
+          <button *ngIf="userName==authService.user.name"type="button" class="btn btn-danger my-2" (click)="deleteUser()">Borrar usuario</button>
 
         </div>
       </div>
@@ -47,5 +48,5 @@
   </div>
 </section>
 
-<app-mail-modal [userName]="user.name" [userId]="userId"></app-mail-modal>
-<app-star-modal [userName]="user.name" [userConf]= userConf></app-star-modal>
+<app-mail-modal [userName]="userName" [userId]="userId"></app-mail-modal>
+<app-star-modal [userName]="userName" [userConf]= userConf></app-star-modal>

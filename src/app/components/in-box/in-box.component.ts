@@ -17,12 +17,15 @@ export class InBoxComponent implements OnInit {
 
   constructor(
     private mailApi: MailControllerService,
+    private authService: AuthService
 
   ) { }
 
   public inBox = [];
   public response = {user:"", id:""}
-  private user = "";
+  private user = {
+    name:""
+  }
 
 
   ngOnInit() {
@@ -34,14 +37,14 @@ export class InBoxComponent implements OnInit {
   // }
 
   getMyInBox(){
-    this.user = sessionStorage.getItem("currentUserName");
-    this.mailApi.getInBox(this.user).subscribe(data => {
+    this.user = this.authService.getUserInfo();
+    this.mailApi.getInBox(this.user.name).subscribe(data => {
       this.inBox = data;
     })
   }
 
   deleteMessage(mailId){
-    this.mailApi.deleteMail(mailId,this.user)
+    this.mailApi.deleteMail(mailId,this.user.name)
   }
 
   replyMessage(user,id){

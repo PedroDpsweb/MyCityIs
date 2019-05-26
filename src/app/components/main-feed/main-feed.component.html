@@ -1,17 +1,18 @@
 <div class="container my-5 text-center">
-    <button type="button" class="btn btn-primary my-5" data-toggle="modal" data-target="#modalPost">Añadir un Post</button>
+    <button type="button" class="btn btn-dark my-5 btn-sombra" data-toggle="modal" data-target="#modalPost">Añadir un Post</button>
     <div class="row">
         <div class="col-4" *ngFor = "let post of posts">
-                <div class="card mx-auto w-100">
+                <div class="card w-100 sombra1">
                         <img class="card-img-top imgFeed p-2" src="{{post.photoUrl}}" alt="Card image cap">
                         <div class="card-body">
                           <h5 class="card-title">{{post.title}}</h5>
-                          <p class="card-text">{{post.description}}</p>
-                          <a routerLink="/user/post/{{post.id}}" class="btn btn-primary">Ver Post</a>
+                          <p class="card-text">{{tools.dateConverter(post.date)}}</p>
+                          <p class="card-text">{{post.user}}</p>
+                          <a routerLink="/user/post/{{post.id}}" class="btn btn-outline-dark">Ver Post</a>
                         </div>
                       </div>
         </div>
-    </div>  
+    </div>
 </div>
 <app-modal [userUid]="userUid" [userName]="userName"></app-modal>
 

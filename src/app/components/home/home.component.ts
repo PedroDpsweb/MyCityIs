@@ -9,29 +9,12 @@ import { AuthService } from '../../services/auth.service';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private authService :AuthService,
+    public authService :AuthService,
   ) { }
 
-  public isLogged: boolean = false;
+  public isLogged = this.authService.logged;
 
   ngOnInit() {
-    this.getCurrentUser();
-  }
-
-  getCurrentUser(){
-    this.authService.isAuth().subscribe(auth => {
-      if (auth) {
-        this.isLogged = true;
-  }else{
-      this.isLogged = false;
-    }
-
-  });
-  }
-
-  chechAdmin(){
-    //La aplicación comprueba si hay usuario admin, si no lo hay lo crea
-
   }
 
 }

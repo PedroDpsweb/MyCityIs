@@ -52,6 +52,7 @@ export class MailControllerService {
   }
 
   sendMail(mail: mailInterface, destination){
+    console.log("destino del mensaje", destination);
     let user = mail.user;
     this.mailsCollection = this.afs.collection(`users/${destination}/inBox`);
     this.mailsCollection.add(mail)

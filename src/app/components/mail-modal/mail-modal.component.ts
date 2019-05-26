@@ -20,24 +20,18 @@ export class MailModalComponent implements OnInit {
   @ViewChild("btnClose") btnClose: ElementRef;
   @Input("userName") userName: string;
   @Input("userId") userId: string;
-  private user = "";
 
   ngOnInit() {
-    this.authService.isAuth().subscribe(user => {
-      if (user) {
-        this.user = user.displayName;
-      }
-    });
-    console.log("aquiiii", this.userName);
+
   }
 
   onSaveMail(mailForm: NgForm) {
-    let destination = this.userName;
-    mailForm.value.user = this.user;
+
+    mailForm.value.user = this.authService.user.name;
     mailForm.value.id = this.userId;
     mailForm.value.date = this.tools.getFormatedDate();
     console.log(mailForm);
-    this.mail.sendMail(mailForm.value, destination);
+    this.mail.sendMail(mailForm.value, this.userName);
     mailForm.resetForm();
     this.btnClose.nativeElement.click();
   }

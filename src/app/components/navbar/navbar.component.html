@@ -8,43 +8,43 @@
 
   <div class="collapse navbar-collapse" id="mainNavbar">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item" *ngIf="!isLogged">
+      <li class="nav-item" *ngIf="!authService.logged== true">
         <a class="nav-link" routerLink="register">Registro
         </a>
       </li>
-      <li class="nav-item" *ngIf="isLogged">
+      <li class="nav-item" *ngIf="authService.logged== true">
           <form class="form-inline my-2 my-lg-0">
               <input id="search" class="form-control mr-sm-2" type="search" placeholder="Nombre Usuario" aria-label="Nombre Usuario">
               <button class="btn btn-outline-light my-2 my-sm-0" (click)="searchUserByName()">Buscador</button>
             </form>
       </li>
-      <li class="nav-item" *ngIf="isAdmin">
+      <li class="nav-item" *ngIf="authService.admin">
         <a class="nav-link" routerLink="/admin">Panel Administrador
         </a>
       </li>
-      <li class="nav-item" *ngIf="isLogged">
+      <li class="nav-item" *ngIf="authService.logged== true">
           <a class="nav-link" routerLink="/user/mainFeed">Muro
           </a>
         </li>
-      <li class="nav-item" *ngIf="isLogged">
-        <a class="nav-link" routerLink="/user/profile/{{userName}}">Perfil</a>
+      <li class="nav-item" *ngIf="authService.logged== true">
+        <a class="nav-link" routerLink="/user/profile/{{authService.user.name}}">Perfil</a>
       </li>
-      <li class="nav-item" *ngIf="isLogged">
+      <li class="nav-item" *ngIf="authService.logged== true">
           <a class="nav-link" routerLink="/user/inBox">Mis mensajes</a>
         </li>
-      <li class="nav-item" *ngIf="isLogged">
+      <li class="nav-item" *ngIf="authService.logged== true">
         <a class="nav-link" routerLink="/user/categorias">Categorías</a>
       </li>
-      <li class="nav-item" *ngIf="!isLogged">
+      <li class="nav-item" *ngIf="!authService.logged== true">
         <a class="nav-link" routerLink="login">Login
         </a>
       </li>
-      <li class="nav-item" *ngIf="isLogged">
+      <li class="nav-item" *ngIf="authService.logged== true">
         <a href="#" class="nav-link" (click)="onLogout()">Logout
         </a>
       </li>
-      <li class="nav-item greeting mx-3" *ngIf="isLogged" (click)="getCurrentUser()">
-        <h2>Hola {{userName}}</h2>
+      <li class="nav-item greeting mx-3" *ngIf="authService.logged== true">
+        <h2>Hola {{authService.user.name}}</h2>
       </li>
     </ul>
   </div>

@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms' ;
 import { AuthService } from 'src/app/services/auth.service';
 import {Router} from '@angular/router';
+import { ToolsService } from '../../services/tools.service';
+
 
 
 
@@ -20,7 +22,9 @@ export class AdminComponent implements OnInit {
   constructor(
     private dataApi: DataApiService,
     private authService :AuthService,
-    private router: Router
+    private router: Router,
+    public tools: ToolsService,
+
   ) { }
 
   public posts: postInterface[];
@@ -30,13 +34,19 @@ export class AdminComponent implements OnInit {
   public userName: string = null;
 
   public selectedCategory :"";
+  public users;
+  public selectedUser;
+  public unknown;
+
+
 
 
   ngOnInit() {
     this.getCategories();
-    this.getCurrentUser();
-
   }
+
+;
+
 
   getCategories(){
     this.dataApi.getAll('Categoria').subscribe(categories =>{
@@ -67,19 +77,30 @@ export class AdminComponent implements OnInit {
     this.dataApi.selectedPost = Object.assign({}, post)
   }
 
-  getCurrentUser() {
-    this.authService.isAuth().subscribe(auth => {
-      if (auth) {
-        this.userName = auth.displayName;
-        this.authService.isUserAdmin(this.userName).subscribe(userRole => {
-          this.isAdmin = Object.assign({}, userRole.roles).hasOwnProperty("admin");
-          //Enseñarselo a Gelpi
-          // if(!this.isAdmin){
-          //   this.router.navigate(['']);
-          // }
-        });
-      }
-    });
+  getAllUsers(){
+    this.authService.getAllUsers().subscribe(data => this.users=data);
   }
+
+  getOneUser(){
+    this.unknown = false;
+    this.selectedUser = null;
+    let userName= (<HTMLInputElement>document.getElementById("searchUser")).value
+    console.log(userName);
+    this.authService.getOneUser(userName).subscribe(data => {
+      if(data){
+        this.selectedUser = data
+      }else{
+        this.unknown = true;
+      }
+
+    } )
+  }
+  onDelUser(userName){
+    const confirmacion = confirm('¿Seguro que quieres eliminar este Usuario?');
+    if(confirmacion){
+      this.authService.deleteUser(userName);
+    }
+    }
+
 
 }

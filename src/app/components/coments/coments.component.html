@@ -1,20 +1,39 @@
-<button class="btn btn-success my-3" type="button" data-toggle="collapse" data-target="#sendComent" aria-expanded="false" aria-controls="sendComent" #btnClose>
+<button class="btn btn-dark my-3" type="button" data-toggle="collapse" data-target="#sendComent" aria-expanded="false" aria-controls="sendComent" #btnClose>
     Deja un Comentario
   </button>
   <div class="collapse" id="sendComent">
       <div class="container coments text-center">
-          <input type="text" class="form-control" id="comentInput" placeholder="Escribe tu comentario">
-          <button type="button" class="btn btn-primary mt-2" (click)="sendComentary()">Comenta</button>
+        <div class="row">
+          <div class="col-10"> <input type="text" class="form-control" id="comentInput" placeholder="Escribe tu comentario" (change)="checkComent()"></div>
+          <div class="col-2"><button *ngIf="this.comentReady==true"type="button" class="btn btn-primary mt-2" (click)="sendComentary()">Enviar</button>
+            <button  *ngIf="this.comentReady==false" type="button" class="btn btn-primary mt-2" disabled (click)="sendComentary()">Enviar</button></div>
+        </div>
           <br>
       </div>
     </div>
 <div class="container" *ngFor="let coment of comentaryList">
-<div class="card border-primary m-3">
-  <div class="card-body text-primary">
-
-    <h5 class="card-title text-left"><a routerLink="/user/profile/{{coment.user}}">{{coment.user}}</a></h5>
-    <p class="card-text"><p>{{coment.text}}</p>
+<div class="card m-3">
+  <div class="card-title text-primary">
+<div class="row">
+  <div class="col-2">
+      <a routerLink="/user/profile/{{coment.user}}"><img src={{coment.img}} class="rounded-circle img-thumbnail mt-4 mb-2" alt="profile"></a>
   </div>
-  <div class="card-footer">{{coment.date}}</div>
+  <div class="col-2">
+      <h3 class="card-title text-left mt-4"><a routerLink="/user/profile/{{coment.user}}">{{coment.user}}</a></h3>
+  </div>
+  <div class="col-8">
+    <div class="coment mx-5 my-4 px-2 text-left">
+      <p class="card-text"><p>{{coment.text}}</p>
+      
+    </div>
+</div>
+
+</div>
+
+  </div>
+  <div class="card-footer">
+    {{coment.date}}
+    <button *ngIf="authService.user.name==coment.user || authService.user.name=='admin' "type="button" class="btn btn-outline-danger mt-2 panel"><i class="fa fa-trash" aria-hidden="true"></i></button>
+  </div>
 </div>
 </div>

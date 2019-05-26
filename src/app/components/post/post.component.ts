@@ -25,24 +25,25 @@ export class PostComponent implements OnInit {
 
   public post: postInterface = {};
   public likes:any = {}
-  public isAdmin: any = null;
+  public isAdmin: any = this.authService.admin;
   public isOwner: boolean = null;
   public userUid: string = null;
-  public userName: string = "";
+  public userName: string = JSON.parse(sessionStorage.getItem('userInfo')).name;
   public like = false;
   public idPost = this.route.snapshot.params["id"];
 
   ngOnInit() {
-    this.getCurrentUser();
     this.getDetails(this.idPost);
   }
 
   getDetails(idPost) {
+    console.log("esta cargando getDetails");
     this.dataApi.getOnePost(idPost).subscribe(post => {
       this.post = post;
-      this.userName == this.post.user ? this.isOwner = true : this.isOwner = false;
-
-      //tengo que pones likes aparte porque si lo cargo todo junto me llega undefined
+      if(this.post.user!=null){
+        this.authService.user.name == this.post.user ? this.isOwner = true : this.isOwner = false;
+      }
+      //tengo que poner likes aparte porque si lo cargo todo junto me llega undefined
       this.likes = post.like;
       console.log(this.post, this.likes);
       this.checkLike();
@@ -50,31 +51,17 @@ export class PostComponent implements OnInit {
 
   }
 
-  getCurrentUser() {
-    this.authService.isAuth().subscribe(auth => {
-      if (auth) {
-        this.userUid = auth.uid;
-        this.userName = auth.displayName;
-        this.authService.isUserAdmin(this.userName).subscribe(userRole => {
-          console.log("y a ti que te pasa", userRole);
-          if(userRole){
-            this.isAdmin = Object.assign({}, userRole.roles).hasOwnProperty("admin");
-          }
-
-        });
-      }
-    });
-  }
-
+//Mirar mas adelante, da error porque antes dle nabigate intenta cargar la foto borrada (aun asi funciona bien)
   OnDeletePost(postId){
     let category = sessionStorage.getItem("categoria");
     this.dataApi.deletePost(postId,category);
     this.router.navigate(['user/mainFeed']);
 
+
   }
 
   checkLike(){
-    let user = sessionStorage.getItem('currentUserName');
+    let user = this.userName;
     if(this.likes.users.includes(user)){
       this.like = true;
   }

@@ -3,10 +3,10 @@
     <div class="row">
 
       <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
-        <div class="card_register">
+        <div class="card_register alinearCenter sombra1">
           <div class="card">
             <div class="card-body text-center">
-              <form #formRegister="ngForm" (ngSubmit)="onAddUser()">
+              <form #formRegister="ngForm" (ngSubmit)="registeringUser(formRegister.value, imageUser)">
                 <h1 class="h3 mb-3 font-weight-normal">Register</h1>
                <div class="form-group">
                   <input type="text" name="userName" class="form-control" placeholder="Usuario" [(ngModel)]="userName" required
@@ -17,7 +17,7 @@
                   <input type="email" name="email" class="form-control" placeholder="Email" [(ngModel)]="email" required
                     minlength="8">
                 </div>
-                
+
                 <div class="form-group">
                   <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="password"
                     required minlength="5" maxlength="10">
@@ -29,22 +29,22 @@
                     <small id="fileHelpId" class="form-text text-muted">Sube tu archivo</small>
                   </div>
                   <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-success" role="progress" 
+                    <div class="progress-bar progress-bar-striped bg-success" role="progress"
                     [style.width]="(uploadPercent | async ) + '%'"></div>
                     <br>
                   </div>
                   <input #imageUser type="hidden" [value]="urlImage | async">
                 </div>
-                
 
-                <button *ngIf="urlImage | async ; else btnDisabled" type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
+
+                <button *ngIf="urlImage | async ; else btnDisabled" type="submit" class="btn btn-lg btn-primary btn-block">Registrarse</button>
 
                 <ng-template #btnDisabled>
-                  <button type="submit" disabled="true" class="btn btn-lg btn-secondary btn-block">Register</button>
+                  <button type="submit" disabled="true" class="btn btn-lg btn-secondary btn-block">Registrarse</button>
                 </ng-template>
-                
+
                 <div class="form-group">
-                  <a routerLink="/user/login" class="form-control login-user">Do you have account?</a>
+                  <a routerLink="/login" class="form-control login-user">¿ Ya tienes una cuenta ?</a>
                 </div>
               </form>
             </div>

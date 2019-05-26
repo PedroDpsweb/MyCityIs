@@ -1,1 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+html,
+body {
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+  background: #6fbfe4;
+  font-family: 'Roboto', sans-serif;
+ 
+}
+
+.wrapper {
+  margin-top: 100px;
+}
+
+.sombra1{
+  -webkit-box-shadow: 33px 35px 5px 0px rgba(66,155,197,1);
+-moz-box-shadow: 33px 35px 5px 0px rgba(66,155,197,1);
+box-shadow: 33px 35px 5px 0px rgba(66,155,197,1);
+}
+
+.sombra2{
+  -webkit-box-shadow: 63px -15px 5px 0px rgba(66,155,197,1);
+-moz-box-shadow: 63px -15px 5px 0px rgba(66,155,197,1);
+box-shadow: 63px -15px 5px 0px rgba(66,155,197,1);
+}
+
+.sombra3{
+  -webkit-box-shadow: 10px 0px 5px 0px rgba(66,155,197,1);
+-moz-box-shadow: 10px 0px 5px 0px rgba(66,155,197,1);
+box-shadow: 10px 0px 5px 0px rgba(66,155,197,1);
+}
+
+.btn-sombra{
+  -webkit-box-shadow: 20px 15px 5px 0px rgba(66,155,197,1);
+  -moz-box-shadow: 20px 15px 5px 0px rgba(66,155,197,1);
+  box-shadow: 20px 15px 5px 0px rgba(66,155,197,1);
+}
+
+.alinearCenter{
+  margin-top: 15vh;
+}
+
+
+

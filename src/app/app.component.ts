@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'MyCityIs';
+  datoHijo = "Sin datos"
+
+checkLog(e){
+console.log(e);
+this.datoHijo = e;
+}
+
+
+
+
 }
