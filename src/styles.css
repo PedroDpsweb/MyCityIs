@@ -7,14 +7,22 @@ body {
   min-height: 100vh;
   height: auto;
   margin: 0;
-  background: #6fbfe4;
+  background-image: url(assets/portada/bg6.png);
+  background-attachment: fixed;
+  background-color: rgb(111,191,228);
+  /* background: linear-gradient(260deg, rgba(111,191,228,1) 0%, rgba(110,242,250,1) 100%); */
   font-family: 'Roboto', sans-serif;
+  scroll-behavior: smooth;
+
+  
  
 }
 
 .wrapper {
   margin-top: 100px;
 }
+
+
 
 .sombra1{
   -webkit-box-shadow: 33px 35px 5px 0px rgba(66,155,197,1);
@@ -43,6 +51,12 @@ box-shadow: 10px 0px 5px 0px rgba(66,155,197,1);
 .alinearCenter{
   margin-top: 15vh;
 }
+
+.gradientDark{
+  background: rgb(0,0,0) !important; 
+  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(51,51,51,1) 50%, rgba(88,88,88,1) 100%) !important;
+}
+
 
 
 

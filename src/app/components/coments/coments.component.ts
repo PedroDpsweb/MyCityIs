@@ -2,6 +2,9 @@ import { Component, OnInit, Input,ViewChild, ElementRef } from '@angular/core';
 import { MailControllerService } from '../../services/mail.service';
 import { ToolsService } from '../../services/tools.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataApiService } from '../../services/data-api.service';
+import Swal from 'sweetalert2';
+
 
 
 
@@ -15,7 +18,8 @@ export class ComentsComponent implements OnInit {
   constructor(
     private coments : MailControllerService,
     private tools : ToolsService,
-    public authService :AuthService
+    public authService :AuthService,
+    private dataApi: DataApiService
   ) { }
 
   @ViewChild('btnClose') btnClose: ElementRef;
@@ -58,4 +62,27 @@ export class ComentsComponent implements OnInit {
     coment!=""?this.comentReady=true:this.comentReady=false;
   }
 
+  deleteComent(comentId){
+    let conf = Swal.fire({
+      title: '¿ Estas seguro ?',
+      text: " Vas a borrar un comentario",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, borralo'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Borrado',
+          'El comentario ha sido borrado',
+          'success'
+        )
+      }
+    });
+    if(conf){
+      let category = sessionStorage.getItem("categoria");
+      this.dataApi.deleteComent(this.id, comentId,category);
+  }
+}
 }

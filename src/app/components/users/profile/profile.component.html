@@ -1,47 +1,132 @@
 <section id="profile" class="container">
-  <div class="row mt-5">
-    <div class="offset-lg-4 col-lg-4 col-sm-6 col-12 main-section text-center card">
+  <div class="row">
+    <div
+      class="offset-lg-4 col-lg-4 col-sm-6 col-12 main-section text-center card"
+    >
+      <div class="row profile-header">
+        <div class="col-lg-12 col-sm-12 col-12">
+          <img
+            src="{{ profilePic }}"
+            class="rounded-circle img-thumbnail mt-4 mb-2"
+            alt="profile"
+          />
+        </div>
+      </div>
       <div class="row">
-        <div class="col-lg-12 col-sm-12 col-12 profile-header">
-          <img src={{profilePic}} class="rounded-circle img-thumbnail mt-4 mb-2" alt="profile">
+        <div class="col-12 mt-2">
+          <button
+          *ngIf="userName == currentUser"
+          class="btn btn-light ml-1"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapsePic"
+          aria-expanded="false"
+          aria-controls="collapsePic"
+          #btnClose
+        >
+        <i class="fas fa-camera"></i>
+        </button>
+      </div>
+        <div class="collapse" id="collapsePic">
+          <div class="form-group">
+            <label for="avatar">Editar Imágen Perfil</label>
+            <input type="file" class="form-control-file" aria-describedby="fileHelpId" accept=".png, .jpg" (change)="onUpload($event)">
+            <small id="fileHelpId" class="form-text text-muted">Sube tu archivo</small>
+          </div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-success" role="progress"
+            [style.width]="(uploadPercent | async ) + '%'"></div>
+            <br>
+          </div>
+          <input #imageUser type="hidden" [value]="urlImage | async">
+          <button *ngIf="urlImage | async ; else btnDisabled" type="button" class="btn btn-lg btn-primary btn-block" (click)="authService.updateUserProfilePic(userName, imageUser.value)">Actualziar</button>
+
+              <ng-template #btnDisabled>
+                <button type="button" disabled="true" class="btn btn-lg btn-secondary btn-block">Actualizar</button>
+              </ng-template>
         </div>
       </div>
       <div class="row user-details">
         <div class="col-12">
-            <h2 class="mt-3">{{userName}}</h2>
-            <p>
-                {{email}}
-            </p>
-          <h3 class="my-3">Categorias</h3>
-          <div class="alert alert-primary" role="alert" *ngFor='let category of authService.user.categories'>
-            {{category}}
+          <h2 class="mt-3">{{ userName }}</h2>
+          <p>
+            {{ email }}
+          </p>
+          <h3 class="my-3">Comunidades</h3>
+          <div
+            class="alert alert-primary"
+            role="alert"
+            *ngFor="let category of categories"
+          >
+            {{ category }}
           </div>
 
-          <hr>
-          <h4 class="my-3">Estado<button *ngIf="userName==authService.user.name" class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" #btnClose>
-            <i class="fas fa-edit"></i>
-          </button></h4>
+          <hr />
+          <h4 class="my-3">
+            Estado<button
+              *ngIf="userName == currentUser"
+              class="btn btn-dark ml-1"
+              type="button"
+              data-toggle="collapse"
+              data-target="#collapseExample"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+              #btnClose
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+          </h4>
 
+          <div class="collapse" id="collapseExample">
+            <input
+              type="text"
+              class="form-control"
+              id="userNewDesc"
+              placeholder="Escribe tu estado"
+            />
+            <button
+              type="button"
+              class="btn btn-dark mt-2"
+              (click)="changeDesc()"
+            >
+              Actualizar
+            </button>
+            <br />
+          </div>
 
-        <div class="collapse" id="collapseExample">
-          <input type="text" class="form-control" id="userNewDesc" placeholder="Escribe tu estado">
-          <button type="button" class="btn btn-primary mt-2" (click)="changeDesc()">Actualizar</button>
-          <br>
-        </div>
-
-
-
-          <div class="col-12">{{userDesc}}</div>
+          <div class="col-12">{{ userDesc }}</div>
           <h4 class="my-3">Estrellas</h4>
           <div id="starCont" class="col-12">
-            <p>Puntos totales: {{totalStars}}</p>
+            <p>Puntos totales: {{ totalStars }}</p>
           </div>
-          <button type="button" class="btn btn-primary my-2" data-toggle="modal" data-target="#starModal"><i class="far fa-star"></i></button>
-          <br>
-          <button *ngIf="userName!=authService.user.name" type="button" class="btn btn-primary my-2" data-toggle="modal" data-target="#modalMail">Mensaje Privado</button>
+          <button
+            type="button"
+            class="btn btn-dark my-2"
+            data-toggle="modal"
+            data-target="#starModal"
+          >
+            <i class="far fa-star"></i>
+          </button>
+          <br />
+          <button
+            *ngIf="userName != currentUser"
+            type="button"
+            class="btn btn-primary my-2"
+            data-toggle="modal"
+            data-target="#modalMail"
+          >
+            Mensaje Privado
+          </button>
 
-          <button *ngIf="userName==authService.user.name"type="button" class="btn btn-danger my-2" (click)="deleteUser()">Borrar usuario</button>
-
+          <button
+            *ngIf="userName == currentUser"
+            type="button"
+            class="btn btn-outline-danger my-2"
+            (click)="deleteUser()"
+          >
+          Eliminar usuario
+          <i class="fa fa-trash ml-1" aria-hidden="true"></i>      
+          </button>
         </div>
       </div>
     </div>
@@ -49,4 +134,4 @@
 </section>
 
 <app-mail-modal [userName]="userName" [userId]="userId"></app-mail-modal>
-<app-star-modal [userName]="userName" [userConf]= userConf></app-star-modal>
+<app-star-modal [userName]="userName" [userConf]="userConf"></app-star-modal>

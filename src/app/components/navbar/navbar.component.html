@@ -1,6 +1,7 @@
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary gradientDark">
   <a class="navbar-brand" routerLink="/">{{app_name}}</a>
+    <h2 *ngIf="authService.logged== true" class="greeting mx-3">Hola {{authService.user.name}}</h2>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -42,9 +43,6 @@
       <li class="nav-item" *ngIf="authService.logged== true">
         <a href="#" class="nav-link" (click)="onLogout()">Logout
         </a>
-      </li>
-      <li class="nav-item greeting mx-3" *ngIf="authService.logged== true">
-        <h2>Hola {{authService.user.name}}</h2>
       </li>
     </ul>
   </div>

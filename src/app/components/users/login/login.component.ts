@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public afAuth: AngularFireAuth,
     private router: Router,
-    private authService: AuthService,
+    public authService: AuthService,
     private tools: ToolsService
   ) {}
 
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    let cipherPass = this.tools.encryptPlainText(this.password);
+    //let cipherPass = this.tools.encryptPlainText(this.password);
     this.authService.LogIn(this.userName, this.password);
 
   }

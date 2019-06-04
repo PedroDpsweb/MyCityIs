@@ -5,6 +5,7 @@ import { AngularFireStorage } from "@angular/fire/storage";
 import { finalize } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { MailControllerService } from "../../../services/mail.service";
+import { ToolsService } from '../../../services/tools.service';
 
 @Component({
   selector: "app-register",
@@ -16,7 +17,8 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private mail: MailControllerService,
     private authService: AuthService,
-    private fireStorage: AngularFireStorage
+    private fireStorage: AngularFireStorage,
+    private tools :ToolsService
   ) {}
 
   @ViewChild("imageUser") inputImageUser: ElementRef;
@@ -35,34 +37,6 @@ export class RegisterComponent implements OnInit {
   console.log("acabo");
   }
 
-  // onAddUser() {
-  //   this.authService
-  //     .registerUser(this.email, this.password, this.userName)
-  //     .then(res => {
-  //       this.authService.isAuth().subscribe(user => {
-  //         if (user) {
-  //           console.log("userActual", user);
-  //           user
-  //             .updateProfile({
-  //               displayName: this.userName,
-  //               photoURL: this.inputImageUser.nativeElement.value
-  //             })
-  //             .then(() => {
-  //               this.authService.updateUserProfilePic(user.displayName, user.photoURL);
-  //               this.welcomeMail(this.userName);
-  //               this.router.navigate(["/"]);
-  //             })
-  //             .catch(error => console.log("error", error));
-  //         }
-  //       });
-  //     })
-  //     .catch(err => console.log("err", err.message));
-  // }
-
-  /** - Capturamos el evento de la subida de imagen
-   *  - Subimos la imagen a FireStorage
-   *  - Guardamos la URL en un campo oculto dle HTML
-   */
   onUpload(e) {
     console.log("subiendo..");
     const id = Math.random()
@@ -86,7 +60,7 @@ export class RegisterComponent implements OnInit {
     let welcome = {
       title: "Bienvenido a MycityIs",
       body: "Ya puedes disfrutar de todo el contenido",
-      date: "Hoy",
+      date: this.tools.getFormatedDate(),
       user: "MycityIs CEO"
     };
     this.mail.sendMail(welcome, destination);

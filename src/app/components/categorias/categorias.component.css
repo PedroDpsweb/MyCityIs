@@ -33,30 +33,12 @@
 .child span p {
     position: absolute;
     bottom: 10%;
-    left:50%;
+    left:45%;
 }
 
 
 
-.fitness {
-    background-image: url("../../../assets/fitness.jpg");
 
-}
-
-.skate {
-    background-image: url("../../../assets/skate.jpg");
-
-}
-
-.adventure{
-    background-image: url("../../../assets/adventure.jpg");
-    background-position-x: 25%;
-
-}
-
-.post{
-    background-image: url("../../../assets/post.jpg");
-}
 
 .categoria:hover .child,
 .categoria:focus .child {
@@ -72,7 +54,12 @@ h1 {
     font-family: 'Merienda One', cursive;
 }
 
-.wrapper{
 
-}
+
+@media (min-width: 992px) { 
+
+    .alerta{
+        width: 20%;
+       }
+    }
 

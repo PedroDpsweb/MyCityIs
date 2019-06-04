@@ -7,6 +7,8 @@ import { count, finalize } from 'rxjs/operators';
 import { ToolsService } from '../../services/tools.service';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from "@angular/fire/storage";
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -43,10 +45,20 @@ export class ModalComponent implements OnInit {
       postForm.value.photoUrl =  (<HTMLInputElement>document.getElementById("photoUrl")).value;
       this.dataApiService.addPost(postForm.value);
     }else{
-      this.dataApiService.updatePost(postForm.value,category);;
+      this.dataApiService.updatePost(postForm.value,category);
     }
     postForm.resetForm();
     this.btnClose.nativeElement.click();
+    Swal.fire({
+      title: 'Post Subido',
+      type: 'success',
+      text: 'Su post se publicó correctamente',
+      imageUrl:(<HTMLInputElement>document.getElementById("photoUrl")).value,
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: 'Imagen Post',
+      animation: true
+    })
 
 
   }

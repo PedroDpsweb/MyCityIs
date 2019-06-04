@@ -1,6 +1,6 @@
 .starOption{
-  height: 100px;
-  width: 100px;
+  height: 50px;
+  width: 50px;
   border: solid black 1px;
 }
 
@@ -8,3 +8,12 @@
   font-family: 'Gorditas', cursive;
   font-size: 20px;
 }
+
+@media (min-width: 992px) { 
+
+  .starOption{
+    height: 100px;
+    width: 100px;
+    border: solid black 1px;
+  }
+  }

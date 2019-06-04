@@ -7,6 +7,8 @@ import { NgForm } from '@angular/forms' ;
 import { AuthService } from 'src/app/services/auth.service';
 import {Router} from '@angular/router';
 import { ToolsService } from '../../services/tools.service';
+import Swal from 'sweetalert2'
+
 
 
 
@@ -24,6 +26,7 @@ export class AdminComponent implements OnInit {
     private authService :AuthService,
     private router: Router,
     public tools: ToolsService,
+
 
   ) { }
 
@@ -96,10 +99,24 @@ export class AdminComponent implements OnInit {
     } )
   }
   onDelUser(userName){
-    const confirmacion = confirm('¿Seguro que quieres eliminar este Usuario?');
-    if(confirmacion){
-      this.authService.deleteUser(userName);
-    }
+    let conf = Swal.fire({
+      title: '¿ Estas seguro ?',
+      text: " Vas a borrar a un usuario",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, borralo'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Borrado',
+          'El usuario ha sido borrado',
+          'success'
+        )
+        this.authService.deleteUser(userName);
+      }
+    });
     }
 
 

@@ -1,14 +1,16 @@
-<div class="wrapper">
-<div class="container mt-5 w-75">
-    <div class="card mx-auto w-100 sombra2">
+<div class="wrap">
+<div class="contenedor">
+    <div class="card mx-auto w-100">
         <img class="card-img-top" src="{{post.photoUrl}}" alt="{{post.title}}">
         <div class="card-body">
           <div class="row">
-            <div class="col-4"><h5 class="card-title">{{post.title}}</h5></div>
-            <div class="col-4">Posteado por :<a routerLink="/user/profile/{{post.user}}"> {{post.user}}</a></div>
-            <div class="col-4">{{tools.dateConverter(post.date)}}</div>
+            <div class="col-12 col-md-4"><h5 class="card-title">{{post.title}}</h5></div>
+            <div class="col-12 col-md-4">Posteado por :<a routerLink="/user/profile/{{post.user}}"> {{post.user}}</a></div>
+            <div class="col-12 col-md-4">{{tools.dateConverter(post.date)}}</div>
           </div> 
+          <hr>
           <p class="card-text">{{post.description}}</p>
+          <hr>
           <p class="card-text"><i class="fas fa-heart count"></i> {{likes.count}}
               <button *ngIf="!like" type="button" class="btn btn-light onlike" (click)="onLike()"><i class="fas fa-thumbs-up"></i></button>
               <button *ngIf="like" type="button" class="btn btn-light" (click)="onLike()"><i class="fas fa-thumbs-down"></i></button>

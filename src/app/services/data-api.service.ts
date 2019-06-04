@@ -37,19 +37,6 @@ export class DataApiService {
     } ))
   }
 
-  //  ///Pongo los coments aqui pero hay que refactorizarlo en un solo codigo, son las mismas funciones
-  //  getAllComents(category, destination){
-  //   this.mailsCollection = this.afs.collection(`${category}/${destination}/coments`, ref => ref.orderBy('date', 'desc'));
-  //   return this.mails = this.mailsCollection.snapshotChanges()
-  //   .pipe( map( changes => {
-  //     return changes.map( action => {
-  //       const data = action.payload.doc.data();
-  //       data.id = action.payload.doc.id;
-  //       return data;
-  //     })
-  //   } ))
-  // }
-
   getOnePost(idPost: string){
     let category = sessionStorage.getItem('categoria');
     this.postDoc = this.afs.doc(category+`/${idPost}`);
@@ -78,6 +65,11 @@ export class DataApiService {
   }
   deletePost(idPost: string, category: string){
     this.postDoc = this.afs.doc<postInterface>(category+`/${idPost}`);
+    this.postDoc.delete();
+  }
+
+  deleteComent(idPost: string, idComent, category: string){
+    this.postDoc = this.afs.doc<postInterface>(`${category}/${idPost}/coments/${idComent}`);
     this.postDoc.delete();
   }
 

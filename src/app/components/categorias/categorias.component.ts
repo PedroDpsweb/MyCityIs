@@ -1,6 +1,7 @@
 import { DataApiService } from './../../services/data-api.service';
 import { Component, OnInit ,ElementRef , ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-categorias',
@@ -17,6 +18,7 @@ export class CategoriasComponent implements OnInit {
   public categories = null;
   public MyCategories = [];
   public allCategories = false;
+  public empty;
 
 
 
@@ -32,6 +34,7 @@ export class CategoriasComponent implements OnInit {
   }
 
   filterMycategories(categories){
+    this.empty=true;
     let myCategories = [];
     this.MyCategories = [];
     let userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
@@ -40,6 +43,8 @@ export class CategoriasComponent implements OnInit {
     for (let category of categories){
      if(myCategories.includes(category.titulo)){
       this.MyCategories.push(category)
+      this.empty=false;
+
      }
     }
 
@@ -61,7 +66,17 @@ export class CategoriasComponent implements OnInit {
     user.categories.push(category);
     sessionStorage.setItem('userInfo', JSON.stringify(user));
     this.authService.updateUserCategory(this.authService.user.name , user.categories)
-    console.log("categoria guardada");
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+    
+    Toast.fire({
+      type: 'success',
+      title: 'Guardado en Mis Comunidades'
+    })
     this.getCategories();
   }
 
@@ -74,13 +89,28 @@ export class CategoriasComponent implements OnInit {
       }
     }
     this.authService.updateUserCategory(this.authService.user.name , newMyCategories);
-    console.log("categoria eliminada");
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+    
+    Toast.fire({
+      type: 'error',
+      title: 'Eliminado de Mis Comunidades'
+    })
     this.getCategories();
 
   }
 
   showAllCategories(){
     this.allCategories==true?this.allCategories=false:this.allCategories=true;
+  }
+
+  scrollToElement($element): void {
+    console.log($element);
+    $element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
 
 }

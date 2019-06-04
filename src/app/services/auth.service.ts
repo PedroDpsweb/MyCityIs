@@ -50,18 +50,23 @@ export class AuthService {
   LogIn(user, pass) {
     let postDoc = this.afs.doc(`users/${user}`);
     postDoc.snapshotChanges().subscribe(data => {
-      this.user = data.payload.data();
-      let decryptedpass=this.tools.decryptPlainText(this.user.password)
-      console.log("stamos aqui", pass, "diria que esto no sale", decryptedpass);
-      if(pass==decryptedpass){
-        this.canLog = true;
-        this.logged = true;
-        this.storageInit(this.user);
-        this.isUserAdmin();
-        this.navigateAfterLogin();
+        this.user = data.payload.data();
+        if(this.user !=undefined){
+        let decryptedpass=this.tools.decryptPlainText(this.user.password)
+        if(pass==decryptedpass){
+          this.canLog = true;
+          this.logged = true;
+          this.storageInit(this.user);
+          this.isUserAdmin();
+          this.navigateAfterLogin();
+        }else{
+          this.canLog = false;
+        }
       }else{
         this.canLog = false;
+        
       }
+      
       
     });
 

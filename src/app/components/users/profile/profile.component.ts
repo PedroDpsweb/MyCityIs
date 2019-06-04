@@ -4,6 +4,9 @@ import { UserInterface } from "./../../../models/user";
 import { AuthService } from "./../../../services/auth.service";
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ActivatedRoute, Params ,Router } from "@angular/router";
+import { AngularFireStorage } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
+import { finalize } from "rxjs/operators";
 
 
 
@@ -19,7 +22,8 @@ export class ProfileComponent implements OnInit {
     private dataService: DataApiService,
     private route: ActivatedRoute,
     private mail: MailControllerService,
-    private router: Router
+    private router: Router,
+    private fireStorage: AngularFireStorage
   ) {}
 
   user: UserInterface = {
@@ -34,6 +38,7 @@ export class ProfileComponent implements OnInit {
   };
 
   @ViewChild('btnClose') btnClose: ElementRef;
+  @ViewChild('imgClose') imgClose: ElementRef;
   public profilePic="";
   public userName = "";
   public userDesc = "";
@@ -44,7 +49,10 @@ export class ProfileComponent implements OnInit {
   public chargedStars = false;
   public userConf = {};
   public isUser = false;
+  public currentUser = JSON.parse(sessionStorage.getItem("userInfo")).name
   private userRef;
+  uploadPercent: Observable<number>;
+  urlImage: Observable<String>;
 
   ngOnInit() {
     //this.chargedStars = false;
@@ -132,5 +140,32 @@ export class ProfileComponent implements OnInit {
      this.userRef.delete();
      this.router.navigate(["/"]);
    }
+  }
+
+  onUpload(e){
+      console.log("subiendo..");
+      const id = Math.random()
+        .toString(36)
+        .substring(2);
+      const file = e.target.files[0];
+      const filePath = `profile/profile_${id}`;
+      const ref = this.fireStorage.ref(filePath);
+      const task = this.fireStorage.upload(filePath, file);
+      this.uploadPercent = task.percentageChanges();
+      task
+        .snapshotChanges()
+        .pipe(finalize(() => (
+          //Campo oculto del html, aquí se queda guardada la URL de la imagen
+          this.urlImage = ref.getDownloadURL())))
+        .subscribe();
+        
+        
+    
+  }
+
+  updatePic(user,url){
+ this.authService.updateUserProfilePic(user,url);
+ (<HTMLInputElement>document.getElementById("imageUser")).value = "";
+    this.imgClose.nativeElement.click();
   }
 }

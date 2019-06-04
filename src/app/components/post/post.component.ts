@@ -8,6 +8,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { Router } from '@angular/router';
 import { post } from 'selenium-webdriver/http';
 import { ToolsService } from '../../services/tools.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: "app-post",
@@ -53,9 +54,28 @@ export class PostComponent implements OnInit {
 
 //Mirar mas adelante, da error porque antes dle nabigate intenta cargar la foto borrada (aun asi funciona bien)
   OnDeletePost(postId){
+    let conf = Swal.fire({
+      title: '¿ Estas seguro ?',
+      text: " Vas a borrar un post",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, borralo'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Borrado',
+          'El post ha sido borrado',
+          'success'
+        )
+      }
+    });
+    if(conf){
     let category = sessionStorage.getItem("categoria");
     this.dataApi.deletePost(postId,category);
     this.router.navigate(['user/mainFeed']);
+    }
 
 
   }
