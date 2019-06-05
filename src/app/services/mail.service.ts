@@ -3,6 +3,7 @@ import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} 
 import { map } from 'rxjs/operators';
 import { mailInterface } from '../models/mail';
 import { Observable } from 'rxjs';
+import { ToolsService } from './tools.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { Observable } from 'rxjs';
 export class MailControllerService {
 
   constructor(
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private tools: ToolsService
   ) { }
 
   private mailsCollection : AngularFirestoreCollection<mailInterface>;
@@ -95,6 +97,16 @@ export class MailControllerService {
   delete(id,category, destination){
     this.mailDoc = this.afs.doc<mailInterface>(`${category}/${destination}/coments/${id}`);
     this.mailDoc.delete();
+  }
+
+  suggestionMail(user) {
+    let suggestion = {
+      title: "Sugerencia",
+      body: "Sugerencia a petición de: "+ user,
+      date: this.tools.getFormatedDate(),
+      user: user
+    };
+    this.sendMail(suggestion, 'admin');
   }
 
 

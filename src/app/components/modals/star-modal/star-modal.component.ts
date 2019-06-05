@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input} from '@angular/core';
 import { BrowserStack } from 'protractor/built/driverProviders';
 import { DataApiService } from '../../../services/data-api.service';
 import { AuthService } from '../../../services/auth.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 
 @Component({
@@ -83,6 +84,14 @@ export class StarModalComponent implements OnInit {
     this.userConf.stars.totalStars = parseInt(this.userConf.stars.totalStars) + parseInt(this.selectedOption);
     this.dataApiService.updateUserStars(this.userConf, this.userName);
     this.btnClose.nativeElement.click();
+    Swal.fire({
+      title: 'Usuario puntuado',
+      type: 'success',
+      animation: false,
+      customClass: {
+        popup: 'animated tada'
+      }
+    })
     }else{
       console.log("este usuario ya ha votado");
     }
@@ -90,7 +99,8 @@ export class StarModalComponent implements OnInit {
   }
 
   checkPuntuation(){
-    let user = this.userName;
+    let user = this.autService.user.name;
+    console.log(user,"esto es ",this.userConf);
     if(this.userConf.stars.userStar.includes(user)){
       this.userRated = true;
   }else{

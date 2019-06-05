@@ -3,6 +3,8 @@ import { AuthService } from '../../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {Router} from '@angular/router';
 import { ToolsService } from '../../services/tools.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { MailControllerService } from '../../services/mail.service';
 
 
 @Component({
@@ -16,7 +18,8 @@ export class NavbarComponent implements OnInit {
     public authService :AuthService,
     private afsAuth: AngularFireAuth,
     private router: Router,
-    private tools: ToolsService
+    private tools: ToolsService,
+    private mail: MailControllerService
     ) { }
 
   public app_name: string = "My City Is";
@@ -69,6 +72,24 @@ export class NavbarComponent implements OnInit {
      let cipherPass = this.tools.encryptPlainText(this.password);
       this.authService.LogIn(this.userName, this.password);
     
+  }
+
+  async suggestion(){
+   	
+const {value: text} = await Swal.fire({
+  title: 'Envianos tu segerencia',
+  input: 'textarea',
+  inputPlaceholder: 'Envianos una sugerencia',
+  showCancelButton: true
+})
+if (text) {
+ this.mail.suggestionMail(this.authService.user.name);
+  Swal.fire(
+    'Gracias por ayudarnos',
+  'Nuestro equipo revisará tu sugerencia',
+  'success'
+    )
+}
   }
 
 }

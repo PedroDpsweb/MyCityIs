@@ -63,21 +63,24 @@ export class CategoriasComponent implements OnInit {
 
   addMyCategory(category){
     let user = JSON.parse(sessionStorage.getItem("userInfo"));
-    user.categories.push(category);
-    sessionStorage.setItem('userInfo', JSON.stringify(user));
-    this.authService.updateUserCategory(this.authService.user.name , user.categories)
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000
-    });
-    
-    Toast.fire({
-      type: 'success',
-      title: 'Guardado en Mis Comunidades'
-    })
-    this.getCategories();
+    if(!user.categories.includes(category)){  
+      user.categories.push(category);
+      sessionStorage.setItem('userInfo', JSON.stringify(user));
+      this.authService.updateUserCategory(this.authService.user.name , user.categories)
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000
+      });
+      
+      Toast.fire({
+        type: 'success',
+        title: 'Guardado en Mis Comunidades'
+      })
+      this.getCategories();
+    }
+   
   }
 
   removeMyCategory(category){

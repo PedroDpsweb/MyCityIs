@@ -11,3 +11,7 @@
    border-bottom: silver solid 2px;
 }
 
+.suggestion {
+  color:white !important;
+  font-size: 20px;
+}

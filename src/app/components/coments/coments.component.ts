@@ -72,17 +72,17 @@ export class ComentsComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, borralo'
     }).then((result) => {
+      console.log("esto sale", result);
       if (result.value) {
         Swal.fire(
           'Borrado',
           'El comentario ha sido borrado',
           'success'
         )
-      }
-    });
-    if(conf){
-      let category = sessionStorage.getItem("categoria");
+        let category = sessionStorage.getItem("categoria");
       this.dataApi.deleteComent(this.id, comentId,category);
-  }
+      }
+      
+    });
 }
 }

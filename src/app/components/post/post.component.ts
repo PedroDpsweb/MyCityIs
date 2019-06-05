@@ -69,15 +69,11 @@ export class PostComponent implements OnInit {
           'El post ha sido borrado',
           'success'
         )
-      }
-    });
-    if(conf){
-    let category = sessionStorage.getItem("categoria");
+        let category = sessionStorage.getItem("categoria");
     this.dataApi.deletePost(postId,category);
     this.router.navigate(['user/mainFeed']);
-    }
-
-
+      }
+    });
   }
 
   checkLike(){

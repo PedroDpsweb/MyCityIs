@@ -5,6 +5,7 @@ import { DataApiService } from "src/app/services/data-api.service";
 import { Component, OnInit, ViewChild, ElementRef, Input } from "@angular/core";
 import { MailControllerService } from "../../services/mail.service";
 import { ToolsService } from '../../services/tools.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: "app-mail-modal",
@@ -34,5 +35,13 @@ export class MailModalComponent implements OnInit {
     this.mail.sendMail(mailForm.value, this.userName);
     mailForm.resetForm();
     this.btnClose.nativeElement.click();
+    Swal.fire({
+      type: 'success',
+      title: 'Mensaje enviado correctamente',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    
+
   }
 }
