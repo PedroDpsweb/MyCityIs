@@ -1,9 +1,7 @@
-import { SubirPostComponent } from './components/subir-post/subir-post.component';
 import { ProfileComponent } from './components/users/profile/profile.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { ListaPostsComponent } from './components/lista-posts/lista-posts.component';
 import { LoginComponent } from './components/users/login/login.component';
 import { RegisterComponent } from './components/users/register/register.component';
 import { Page404Component } from './components/page404/page404.component';
@@ -25,10 +23,8 @@ import { AdminGuardGuard } from './guards/admin-guard.guard';
 const routes: Routes = [
   {path:'', component:HomeComponent},
   {path:'user/categorias', component: CategoriasComponent ,canActivate:[AuthGuard]},
-  {path:'listaPosts', component: ListaPostsComponent},
   {path:'user/inBox', component: InBoxComponent},
   {path:'user/post/:id', component: PostComponent ,canActivate:[AuthGuard]},
-  {path:'user/subirPost', component: SubirPostComponent ,canActivate:[AuthGuard]},
   {path:'user/mainFeed', component: MainFeedComponent ,canActivate:[AuthGuard]},
   {path:'user/profile/:name', component:ProfileComponent, canActivate:[AuthGuard]},
   {path:'login', component:LoginComponent},

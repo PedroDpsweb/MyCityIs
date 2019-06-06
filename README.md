@@ -1,27 +1,40 @@
-# MyCityIs
+#DIAGRAMA DE COMPONENTES
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
+# Introducción:
+En el PFC se pedía un diagrama de Clases, pero como en este proyecto el backEnd es un Servicio Online (Firebase), he decidido hacer un esquema de la arquitectura de Angular explicando la funcionalidad de cada parte.
 
-## Development server
+![Texto alternativo](/DiagramaComponetes.png)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# Services: AuthService:
 
-## Code scaffolding
+Servicio que proporciona a los componentes que lo necesiten las funciones necesarias para interactuar con el sistema de Login. Este servicio además guarda los datos del usuario logeado, es decir, todo componente que quiera referenciar al usuario activo deberá hacer referencia al objeto user de este servicio el cual contiene todos los datos del usuario logeado.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+DataApiService:
 
-## Build
+Servicio que proporciona a los componentes que lo necesiten las funciones necesarias para acceder a la información almacenada en base de datos.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+MailControllerService
 
-## Running unit tests
+Servicio que proporciona a los componentes que lo necesiten las funciones necesarias para utilizar el sistema de mensajería privada de la aplicación. El sistema de sugerencias también utiliza este servicio.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+ToolService Este servicio provee de funcionalidades puntuales a todos los componentes. Las funciones pueden ir desde encriptación de contraseña hasta formateador de fechas, en esencia este servicio es un apoyo para funciones recurrentes.
 
-## Running end-to-end tests
+# Components:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Cada componente tiene 4 archivos: html : estructura css : estilos ts : lógica spec.ts : pruebas genéricas angular
 
-## Further help
+admin Panel administrador
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+comunities Componente de elección de comunidades coments Comentarios de los posts home Pantalla de inicio
+
+main-feed Muro de la comunidad seleccionada post Post escogido navbar Header de navegación de la web in-box Bandeja de correo modals mail-modal : modal para enviar correo star-modal : modal para puntuar usuario modal : modal para subir post users login : pantalla de login register: pantalla de registro profile : pantalla de perfil de usuario
+
+page 404 : pantalla no encontrada
+
+# Guards Los guards son funciones que se ejecutan cuando se pasa de un componente a otro. Ejecutan una función y dejará paso SOLO si el resultado de dicha función es true.
+
+authGuard : deja pasar si estas logeado. adminGuard : deja pasar solo al usuario administrador
+
+# Models Objetos predefinidos que se usan como interfaces.
+
+mail : estructura mail user : estructura user post : estructura post

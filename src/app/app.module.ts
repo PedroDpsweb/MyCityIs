@@ -8,7 +8,6 @@ import { environment } from "../environments/environment";
 //Componentes
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { ListaPostsComponent } from "./components/lista-posts/lista-posts.component";
 import { PostComponent } from "./components/post/post.component";
 import { HomeComponent } from "./components/home/home.component";
 import { ModalComponent } from "./components/modals/modal/modal.component";
@@ -19,7 +18,6 @@ import { ProfileComponent } from "./components/users/profile/profile.component";
 import { RegisterComponent } from "./components/users/register/register.component";
 import { Page404Component } from "./components/page404/page404.component";
 import { MainFeedComponent } from "./components/main-feed/main-feed.component";
-import { SubirPostComponent } from './components/subir-post/subir-post.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { InBoxComponent } from './components/in-box/in-box.component';
 
@@ -49,7 +47,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
-    ListaPostsComponent,
     PostComponent,
     HomeComponent,
     ModalComponent,
@@ -60,7 +57,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     RegisterComponent,
     Page404Component,
     MainFeedComponent,
-    SubirPostComponent,
     CategoriasComponent,
     AdminComponent,
     SanitizePipe,
