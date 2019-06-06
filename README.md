@@ -28,6 +28,8 @@ Cada componente tiene 4 archivos:
 * ts : lógica 
 * spec.ts : pruebas genéricas angular
 
+***
+
 - admin Panel administrador
 
 - comunities Componente de elección de comunidades coments Comentarios de los posts home Pantalla de inicio
@@ -55,4 +57,6 @@ authGuard : deja pasar si estas logeado. adminGuard : deja pasar solo al usuario
 # Models 
 Objetos predefinidos que se usan como interfaces.
 
-mail : estructura mail user : estructura user post : estructura post
+mail : estructura mail 
+user : estructura user 
+post : estructura post
