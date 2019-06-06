@@ -1,10 +1,10 @@
 import { NgForm } from "@angular/forms";
-import { AuthService } from "./../../services/auth.service";
-import { mailInterface } from "./../../models/mail";
+import { AuthService } from "../../../services/auth.service";
+import { mailInterface } from "../../../models/mail";
 import { DataApiService } from "src/app/services/data-api.service";
 import { Component, OnInit, ViewChild, ElementRef, Input } from "@angular/core";
-import { MailControllerService } from "../../services/mail.service";
-import { ToolsService } from '../../services/tools.service';
+import { MailControllerService } from "../../../services/mail.service";
+import { ToolsService } from '../../../services/tools.service';
 import Swal from 'sweetalert2';
 
 @Component({

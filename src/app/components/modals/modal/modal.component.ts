@@ -1,10 +1,10 @@
 import { NgForm } from '@angular/forms';
-import { AuthService } from './../../services/auth.service';
-import { postInterface } from './../../models/post';
+import { AuthService } from '../../../services/auth.service';
+import { postInterface } from '../../../models/post';
 import { DataApiService } from 'src/app/services/data-api.service';
 import { Component, OnInit, ViewChild, ElementRef, Input} from '@angular/core';
 import { count, finalize } from 'rxjs/operators';
-import { ToolsService } from '../../services/tools.service';
+import { ToolsService } from '../../../services/tools.service';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from "@angular/fire/storage";
 import Swal from 'sweetalert2';
