@@ -1,9 +1,10 @@
-#DIAGRAMA DE COMPONENTES
+# My City Is
+Diagrama de Componentes
 
 # Introducción:
 En el PFC se pedía un diagrama de Clases, pero como en este proyecto el backEnd es un Servicio Online (Firebase), he decidido hacer un esquema de la arquitectura de Angular explicando la funcionalidad de cada parte.
 
-![Texto alternativo](/DiagramaComponetes.png)
+![Texto alternativo](/DiagramaComponentes.png)
 
 # Services: AuthService:
 
