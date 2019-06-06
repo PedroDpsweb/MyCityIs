@@ -23,7 +23,7 @@ export class DataApiService {
 
 
 
-  getAll(category, ordered = false){
+  getAll(category, ordered = false, page = false){
     ordered == true? this.postsCollection = this.afs.collection<postInterface>(category, ref => ref.orderBy('date' , 'desc')):
     this.postsCollection = this.afs.collection<postInterface>(category);
     //this.postsCollection = this.afs.collection<postInterface>(category, ref => ref.orderBy('date' , 'desc'));

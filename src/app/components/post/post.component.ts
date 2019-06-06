@@ -83,6 +83,11 @@ export class PostComponent implements OnInit {
   }
   }
 
+  onPreUpdatePost(post){
+    console.log("que hay aqui", post);
+    this.dataApi.selectedPost = Object.assign({}, post)
+  }
+
   onLike(){
     let categoria = sessionStorage.getItem("categoria");
     //Dando like

@@ -23,7 +23,9 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(this.authService.logged==true){
+      let status = JSON.parse(sessionStorage.getItem('logged'))
+      console.log("aqui",status);
+      if(status==true){
         return true
       }else{
         console.log("user-guard activado");

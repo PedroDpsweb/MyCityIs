@@ -40,6 +40,8 @@ export class AdminComponent implements OnInit {
   public users;
   public selectedUser;
   public unknown;
+  public pageActual:number = 1;
+  public pageActualUsers:number = 1;
 
 
 

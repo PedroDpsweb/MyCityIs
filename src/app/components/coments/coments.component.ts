@@ -34,6 +34,7 @@ export class ComentsComponent implements OnInit {
   public comentaryList = [];
   private MyInfo = this.authService.getUserInfo();
   comentReady = false;
+  public pageActual:number = 1;
 
   ngOnInit() {
     this.getComents();

@@ -45,7 +45,7 @@
     <br />
   </div>
 </div>
-<div class="" *ngFor="let coment of comentaryList">
+<div class="" *ngFor="let coment of comentaryList | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i= index">
   <div class="card m-3 coment">
     <div class="card-title text-primary">
       <div class="row">
@@ -88,3 +88,6 @@
     </div>
   </div>
 </div>
+</div>
+
+<pagination-controls (pageChange)="pageActual = $event" class="my-pagination text-center"></pagination-controls>

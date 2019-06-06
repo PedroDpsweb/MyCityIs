@@ -99,10 +99,10 @@ export class MailControllerService {
     this.mailDoc.delete();
   }
 
-  suggestionMail(user) {
+  suggestionMail(user, text) {
     let suggestion = {
       title: "Sugerencia",
-      body: "Sugerencia a petición de: "+ user,
+      body: `Sugerencia a petición de ${user} : ${text}` ,
       date: this.tools.getFormatedDate(),
       user: user
     };

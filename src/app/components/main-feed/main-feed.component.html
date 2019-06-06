@@ -1,7 +1,7 @@
 <div class="container my-5 text-center">
     <button type="button" class="btn btn-dark my-5 btn-sombra" data-toggle="modal" data-target="#modalPost">Añadir un Post</button>
     <div class="row">
-        <div class="col-xd-12 col-md-4" *ngFor = "let post of posts">
+        <div class="col-xd-12 col-md-4" *ngFor = "let post of posts | paginate: {itemsPerPage: 6, currentPage: pageActual}">
                 <div class="card my-3 w-100 sombra1">
                     <a routerLink="/user/post/{{post.id}}"><img class="card-img-top imgFeed p-2" src="{{post.photoUrl}}" alt="Card image cap"></a>
                         <div class="card-body">
@@ -13,6 +13,8 @@
         </div>
     </div>
 </div>
+  <pagination-controls (pageChange)="pageActual = $event" class="my-pagination text-center"></pagination-controls>
+
 <app-modal [userUid]="userUid" [userName]="userName"></app-modal>
 
 

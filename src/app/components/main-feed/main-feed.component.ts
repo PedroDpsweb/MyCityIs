@@ -25,6 +25,7 @@ export class MainFeedComponent implements OnInit {
   public isAdmin = this.authService.admin;
   public userUid: string = null;
   public userName: string = null;
+  public pageActual:number = 1;
 
   ngOnInit() {
     this.userName = sessionStorage.getItem("currentUserName");

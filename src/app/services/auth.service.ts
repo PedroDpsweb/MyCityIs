@@ -52,7 +52,7 @@ export class AuthService {
     postDoc.snapshotChanges().subscribe(data => {
         this.user = data.payload.data();
         if(this.user !=undefined){
-        let decryptedpass=this.tools.decryptPlainText(this.user.password)
+        let decryptedpass=this.tools.decryptPlainText(this.user.password);
         if(pass==decryptedpass){
           this.canLog = true;
           this.logged = true;
@@ -76,6 +76,7 @@ export class AuthService {
   }
 
   logoutUser() {
+    sessionStorage.setItem("logged", JSON.stringify(false))
     this.logged = false;
     this.admin = false;
   }
@@ -118,6 +119,7 @@ export class AuthService {
 
   storageInit(userInfo) {
     sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+    sessionStorage.setItem("logged", JSON.stringify(true))
   }
 
   getUserInfo() {

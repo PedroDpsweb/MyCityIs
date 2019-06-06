@@ -83,7 +83,7 @@ const {value: text} = await Swal.fire({
   showCancelButton: true
 })
 if (text) {
- this.mail.suggestionMail(this.authService.user.name);
+ this.mail.suggestionMail(this.authService.user.name, text);
   Swal.fire(
     'Gracias por ayudarnos',
   'Nuestro equipo revisará tu sugerencia',

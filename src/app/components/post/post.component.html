@@ -1,6 +1,6 @@
 <div class="wrap">
 <div class="contenedor">
-    <div class="card mx-auto w-100">
+    <div class="card mx-auto w-50">
         <img class="card-img-top" src="{{post.photoUrl}}" alt="{{post.title}}">
         <div class="card-body">
           <div class="row">
@@ -18,20 +18,24 @@
         </div>
 
         <div class="controlPanel container mb-5 text-center" *ngIf="isAdmin == true || isOwner == true; else noOwner">
-          <button class="btn btn-success mx-2">Update</button>
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target='#modalPost' (click)="onPreUpdatePost(post)">Update</button>
           <button type="submit" class="btn btn-danger mx-2" (click)="OnDeletePost(post.id)">Eliminar Post <i class="fa fa-trash" aria-hidden="true"></i></button>
         </div>
 
         <button class="btn btn-outline-dark my-3" type="button" data-toggle="collapse" data-target="#collapseComents" aria-expanded="false" aria-controls="collapseComents">
             Mostrar Comentarios
           </button>
+
+          <div class="collapse" id="collapseComents">
+              <div class="container coments text-center">
+                <app-coments [id]="idPost"></app-coments>
+              </div>
+            </div>
+
+          <a class="text-center" routerLink="/user/mainFeed"><i class="fas fa-arrow-circle-left"> Volver al muro</i></a>
           
 
-        <div class="collapse" id="collapseComents">
-            <div class="container coments text-center">
-              <app-coments [id]="idPost"></app-coments>
-            </div>
-          </div>
+        
 
 
       </div>
@@ -50,5 +54,9 @@
 
 </div>
 </div>
+
+
+
+<app-modal [userUid]="userUid"></app-modal>
 
 
