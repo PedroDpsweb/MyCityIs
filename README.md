@@ -47,10 +47,12 @@ Cada componente tiene 4 archivos:
 
 - page 404 : pantalla no encontrada
 
-# Guards Los guards son funciones que se ejecutan cuando se pasa de un componente a otro. Ejecutan una función y dejará paso SOLO si el resultado de dicha función es true.
+# Guards
+Los guards son funciones que se ejecutan cuando se pasa de un componente a otro. Ejecutan una función y dejará paso SOLO si el resultado de dicha función es true.
 
 authGuard : deja pasar si estas logeado. adminGuard : deja pasar solo al usuario administrador
 
-# Models Objetos predefinidos que se usan como interfaces.
+# Models 
+Objetos predefinidos que se usan como interfaces.
 
 mail : estructura mail user : estructura user post : estructura post
