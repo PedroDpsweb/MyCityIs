@@ -30,9 +30,7 @@ export class InBoxComponent implements OnInit {
     this.getMyInBox();
   }
 
-  // getOneMessage(){
-  //   this.mailApi.getMail().subscribe(prueba => { console.log(prueba)})
-  // }
+
 
   getMyInBox() {
     this.user = this.authService.getUserInfo();

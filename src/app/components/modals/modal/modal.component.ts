@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
 export class ModalComponent implements OnInit {
 
   constructor(
-    private authService :AuthService,
+    public authService :AuthService,
     public dataApiService : DataApiService,
     private fireStorage: AngularFireStorage,
     private tools: ToolsService
@@ -28,6 +28,7 @@ export class ModalComponent implements OnInit {
   @ViewChild('btnClose') btnClose: ElementRef;
   @Input('userUid') userUid: string;
   @Input('userName') userName: string;
+  @Input('isUpdate') isUpdate: boolean;
   private user="";
   uploadPercent: Observable<number>;
   urlImage: Observable<String>;

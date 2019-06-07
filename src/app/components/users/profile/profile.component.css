@@ -22,6 +22,26 @@ img {
 #profile {
   margin-top: 50px;
 }
+.profContainer{
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+
+}
+
+@supports(object-fit: cover){
+  .imgFeed{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+
+
+
+
 
 @media (min-width: 992px) { 
     #profile {

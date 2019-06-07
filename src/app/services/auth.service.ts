@@ -156,7 +156,7 @@ export class AuthService {
     let path = window.location.pathname;
     if(path==login || path==register){
       console.log("pasa por el navigate", window.location.pathname );
-     this.router.navigate(['user/categorias']);
+     this.router.navigate(['user/comunidades']);
     }
   }
 

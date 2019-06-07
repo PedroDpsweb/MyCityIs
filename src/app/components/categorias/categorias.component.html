@@ -1,6 +1,6 @@
 <div class="wrapper">
 <div class="container-fluid mt-5 text-center">
-  <h1 #top class="text-center mb-5">Tus Comunidades</h1>
+  <h1 #top class="text-center mb-5">TUS COMUNIDADES</h1>
 
   <div *ngIf="empty==true" class="alert alert-warning alerta mx-auto" role="alert">
     No has añadido ninguna Comunidad
@@ -21,10 +21,10 @@
     </div>
   </div>
 
-  <button class="btn btn-dark btn-sombra" (click)="showAllCategories()">Ver todas las Comunidades</button>
+  <button class="btn btn-dark btn-sombra mb-5" (click)="showAllCategories()">Ver todas las Comunidades</button>
 
   <div *ngIf='allCategories==true'>
-  <h1 class="text-center my-5">Todas las  Comunidades</h1>
+  <h1 class="text-center my-5">TODAS LAS COMUNIDADES</h1>
 
   <div class="row">
       <div class="col-12 col-md-4 categoria px-3 pb-3" *ngFor="let category of categories">
@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <a class="btn btn-outline-dark btn-sombra mt-3" (click)="scrollToElement(top)"><i class="fas fa-level-up-alt"></i></a>
+    <a class="btn btn-outline-dark btn-sombra my-5" (click)="scrollToElement(top)"><i class="fas fa-level-up-alt"></i></a>
 
 
 

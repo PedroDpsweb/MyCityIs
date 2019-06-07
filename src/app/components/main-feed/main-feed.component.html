@@ -3,7 +3,11 @@
     <div class="row">
         <div class="col-xd-12 col-md-4" *ngFor = "let post of posts | paginate: {itemsPerPage: 6, currentPage: pageActual}">
                 <div class="card my-3 w-100 sombra1">
-                    <a routerLink="/user/post/{{post.id}}"><img class="card-img-top imgFeed p-2" src="{{post.photoUrl}}" alt="Card image cap"></a>
+                  <div class="tarjeta">
+                    <a routerLink="/user/post/{{post.id}}">
+                      <img class="card-img-top imgFeed p-2" src="{{post.photoUrl}}" alt="Card image cap">
+                    </a>
+                  </div>
                         <div class="card-body">
                           <h5 class="card-title">{{post.title}}</h5>
                           <p class="card-text">{{tools.dateConverter(post.date)}}</p>

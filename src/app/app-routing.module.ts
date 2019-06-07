@@ -22,7 +22,7 @@ import { AdminGuardGuard } from './guards/admin-guard.guard';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
-  {path:'user/categorias', component: CategoriasComponent ,canActivate:[AuthGuard]},
+  {path:'user/comunidades', component: CategoriasComponent ,canActivate:[AuthGuard]},
   {path:'user/inBox', component: InBoxComponent},
   {path:'user/post/:id', component: PostComponent ,canActivate:[AuthGuard]},
   {path:'user/mainFeed', component: MainFeedComponent ,canActivate:[AuthGuard]},

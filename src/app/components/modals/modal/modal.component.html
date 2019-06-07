@@ -40,8 +40,13 @@
           </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Cancelar</button>
+        <!-- <button *ngIf="urlImage | async ; else btnDisabled" type="submit" class="btn btn-primary">Postear</button> -->
         <button type="submit" class="btn btn-primary">Postear</button>
       </div>
+
+      <!-- <ng-template #btnDisabled>
+          <button type="submit" disabled="true" class="btn btn-primary">Postear</button>
+        </ng-template> -->
     </form>
     </div>
   </div>

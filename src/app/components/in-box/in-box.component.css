@@ -1,0 +1,14 @@
+.messageContainer {
+}
+
+.messageHeader {
+  color: white;
+  
+}
+
+.headerContainer {
+  background-color: rgba(40,40,40,1);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}

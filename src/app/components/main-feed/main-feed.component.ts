@@ -34,7 +34,7 @@ export class MainFeedComponent implements OnInit {
       this.dataApi.getAll(this.category, true).subscribe(posts => {
         this.posts = posts;
       })}else{
-        this.route.navigate(['user/categorias']);
+        this.route.navigate(['user/comunidades']);
       }
     }
 

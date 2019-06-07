@@ -1,6 +1,22 @@
-.imgFeed{
+/* .imgFeed{
     height: 300px;
     width: 100%;
+} */
+
+.tarjeta{
+    height: 300px;
+    background: #CCC;
+  overflow: hidden;
+
+}
+
+@supports(object-fit: cover){
+    .imgFeed{
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
 }
 
 

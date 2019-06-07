@@ -32,6 +32,7 @@ export class PostComponent implements OnInit {
   public userName: string = JSON.parse(sessionStorage.getItem('userInfo')).name;
   public like = false;
   public idPost = this.route.snapshot.params["id"];
+  public isUpdate = false;
 
   ngOnInit() {
     this.getDetails(this.idPost);
@@ -84,7 +85,7 @@ export class PostComponent implements OnInit {
   }
 
   onPreUpdatePost(post){
-    console.log("que hay aqui", post);
+    this.isUpdate=true;
     this.dataApi.selectedPost = Object.assign({}, post)
   }
 
