@@ -67,6 +67,7 @@ export class AdminComponent implements OnInit {
   this.selectedCategory = categoria;
     this.dataApi.getAll(categoria).subscribe(posts =>{
       this.posts = posts;
+      console.log(this.posts);
     })
   }
 

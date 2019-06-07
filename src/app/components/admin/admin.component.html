@@ -1,13 +1,15 @@
-<div class="row">
-  <div class="col-12">
-    <div class="container init">
+<div class="container">
+    <div class="init">
 
       <h1>Panel del Administrador</h1>
-      <h2>Todas las categorias</h2>
+      
     
-
+      <div class="container listContainer py-3 my-5">
       <div class="adminDesktop">
-        <button  *ngFor="let category of categories" type="button" class="btn btn-primary m-2" (click)="getListPosts($event.srcElement.innerHTML)">{{category.titulo}}</button>
+       
+          <h2 class="mx-3 listHeader">Todas las categorias</h2>
+        
+        <button  *ngFor="let category of categories" type="button" class="btn btn-dark m-2" (click)="getListPosts($event.srcElement.innerHTML)">{{category.titulo}}</button>
     
     
     
@@ -24,24 +26,28 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor = "let post of posts | paginate: {itemsPerPage: 5, currentPage: pageActual}">
+              <tr *ngFor = "let post of posts | paginate: {itemsPerPage: 3, currentPage: pageActual , id:'postControl'}">
                 <th scope="row">{{post.id}}</th>
                 <td><img src="{{post.photoUrl}}" style="height:30px; width:50px"></td>
                 <td>{{post.title}}</td>
                 <td>{{post.user}}</td>
-                <td>{{tools.getFormatedDate(post.date)}}</td>
+                <td>{{tools.dateConverter(post.date)}}</td>
                 <td><button type="button" class="btn btn-success" data-toggle="modal" data-target='#modalPost' (click)="onPreUpdatePost(post, selectedCategory)">Update</button></td>
                 <td><button type="button" class="btn btn-danger" (click)="onDeletePost(post.id, selectedCategory)">Borrar</button></td>
               </tr>
             </tbody>
           </table>
-          <pagination-controls (pageChange)="pageActual = $event" class="my-pagination text-center"></pagination-controls>
+          <pagination-controls (pageChange)="pageActual = $event" class="my-pagination text-center" id="postControl"></pagination-controls>
       </div>
+    </div>
+
+    <div class="container listContainer py-3">
+  
           
-    
-          <button type="button" class="btn btn-primary m-2" (click)="getAllUsers()">Todos los Usuarios</button>
+      <h2 class="mx-3 listHeader">Usuarios</h2>
+          <button type="button" class="btn btn-dark my-2" (click)="getAllUsers()">Buscar todos los Usuarios</button>
           <div class="form-group mb-2">
-          <button type="button" class="btn btn-primary m-2" (click)="getOneUser()">Buscar usuario</button>
+          <button type="button" class="btn btn-dark my-2 mr-2" (click)="getOneUser()">Buscar un usuario</button>
           <input type="text" id="searchUser" placeholder="Nombre de Usuario">
           </div>
     
@@ -72,18 +78,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor = "let user of users | paginate: {itemsPerPage: 5, currentPage: pageActualUsers}">
+        <tr *ngFor = "let user of users | paginate: {itemsPerPage: 5, currentPage: pageActualUsers, id: 'users'}">
           <th scope="row">{{user.name}}</th>
           <td><button type="button" class="btn btn-danger" (click)="onDelUser(user.name)">Borrar</button></td>
         </tr>
       </tbody>
     </table>
-    <pagination-controls (pageChange)="pageActualUsers = $event" class="my-pagination text-center"></pagination-controls>
+    <pagination-controls (pageChange)="pageActualUsers = $event" class="my-pagination text-center" id="users"></pagination-controls>
+    </div>
     
     </div>
-  </div>
-</div>
 
+</div>
 
 
 <app-modal [userUid]="userUid"></app-modal>

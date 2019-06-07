@@ -2,8 +2,25 @@
     display: none;
 }
 
+.listContainer{
+    background-color: rgba(40,40,40,1);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.listHeader{
+    color:white;
+}
+
 .init {
-    margin-top: 70px;
+    margin: 100px auto 0 ;
+    width: 100%;
+}
+
+h1, h2 {
+    font-family: 'Paytone One', sans-serif;
+
 }
 
 @media (min-width: 992px) { 
