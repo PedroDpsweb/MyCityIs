@@ -7,6 +7,7 @@ import { ActivatedRoute, Params ,Router } from "@angular/router";
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { finalize } from "rxjs/operators";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 
 
@@ -168,4 +169,25 @@ export class ProfileComponent implements OnInit {
  (<HTMLInputElement>document.getElementById("imageUser")).value = "";
     this.imgClose.nativeElement.click();
   }
+
+
+  async report(target){
+   	
+    const {value: text} = await Swal.fire({
+      title: 'Denunciar a este usuario',
+      input: 'textarea',
+      inputPlaceholder: 'Escribe tus motivos aquí',
+      showCancelButton: true
+    })
+    if (text) {
+     this.mail.reportMail(this.authService.user.name, text, target);
+      Swal.fire(
+        'Usuario denunciado con éxito',
+      'En breves nos pondremos en contacto contigo para gestionar el problema',
+      'warning'
+        )
+    }
+      }
+
+
 }

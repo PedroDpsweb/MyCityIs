@@ -120,6 +120,17 @@
             Mensaje Privado
           </button>
 
+          <br>
+
+          <button
+            *ngIf="userName != currentUser"
+            type="button"
+            class="btn btn-danger my-2"
+            (click)="report(userName)">
+          <i class="fas fa-exclamation-circle"></i>
+            Denunciar Usuario
+          </button>
+
           <button
             *ngIf="userName == currentUser"
             type="button"

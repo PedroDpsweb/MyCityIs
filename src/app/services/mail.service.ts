@@ -109,6 +109,16 @@ export class MailControllerService {
     this.sendMail(suggestion, 'admin');
   }
 
+  reportMail(user, text ,target) {
+    let suggestion = {
+      title: `Usuario denunciado : ${target}`,
+      body: `Denuncia realizada por ${user}. Razon : ${text}` ,
+      date: this.tools.getFormatedDate(),
+      user: user
+    };
+    this.sendMail(suggestion, 'admin');
+  }
+
 
 
 }
