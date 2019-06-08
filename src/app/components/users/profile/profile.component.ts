@@ -183,7 +183,7 @@ export class ProfileComponent implements OnInit {
      this.mail.reportMail(this.authService.user.name, text, target);
       Swal.fire(
         'Usuario denunciado con éxito',
-      'En breves nos pondremos en contacto contigo para gestionar el problema',
+      'Contactaremos contigo lo antes posible para verificar el incidente.',
       'warning'
         )
     }
