@@ -1,6 +1,6 @@
 <div class="wrap">
 <div class="contenedor">
-    <div class="card mx-auto w-50">
+    <div class="card mx-auto displayPost">
         <img class="card-img-top" src="{{post.photoUrl}}" alt="{{post.title}}">
         <div class="card-body">
           <div class="row">
@@ -56,7 +56,7 @@
 </div>
 
 
-
-<app-modal [userUid]="userUid"></app-modal>
+<app-modal *ngIf="isUpdate==true" [userUid]="userUid" [isUpdate]="isUpdate"></app-modal>
+<app-modal *ngIf="isUpdate==false" [userUid]="userUid"></app-modal>
 
 

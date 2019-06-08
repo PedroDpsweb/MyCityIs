@@ -1,5 +1,5 @@
-.dislike{
-   
+.displayPost{
+    width: 100%;
 }
 
 .onlike{
@@ -20,5 +20,9 @@
 
 .contenedor{
 margin:20vh;
+}
+
+.displayPost{
+    width: 50%;
 }
 }
