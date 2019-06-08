@@ -14,13 +14,13 @@
   <div class="container coments text-center">
     <div class="row">
       <div class="col-12 col-md-10">
-        <input
-          type="text"
+        <textarea
+          rows="3"
           class="form-control"
           id="comentInput"
           placeholder="Escribe tu comentario"
           (change)="checkComent()"
-        />
+        ></textarea>
       </div>
       <div class="col-2">
         <button
@@ -45,7 +45,14 @@
     <br />
   </div>
 </div>
-<div class="" *ngFor="let coment of comentaryList | paginate: {itemsPerPage: 5, currentPage: pageActual}; let i= index">
+<div
+  class=""
+  *ngFor="
+    let coment of comentaryList
+      | paginate: { itemsPerPage: 5, currentPage: pageActual };
+    let i = index
+  "
+>
   <div class="card m-3 coment">
     <div class="card-title text-primary">
       <div class="row">
@@ -71,23 +78,30 @@
           </div>
         </div>
       </div>
-    
-    <div class="card-footer">
-      {{ coment.date }}
-      <button
-        *ngIf="
-          authService.user.name == coment.user ||
-          authService.user.name == 'admin'
-        "
-        type="button"
-        class="btn btn-outline-danger mt-2 ml-5"
-        (click)="deleteComent(coment.id)"
-      >
-        <i class="fa fa-trash" aria-hidden="true"></i>
-      </button>
+
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-6"> {{ coment.date }}</div>
+          <div class="col-6"><button
+            *ngIf="
+              authService.user.name == coment.user ||
+              authService.user.name == 'admin'
+            "
+            type="button"
+            class="btn btn-outline-danger mt-2 ml-5"
+            (click)="deleteComent(coment.id)"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button></div>
+        </div>
+       
+        
+      </div>
     </div>
   </div>
 </div>
-</div>
 
-<pagination-controls (pageChange)="pageActual = $event" class="my-pagination text-center"></pagination-controls>
+<pagination-controls
+  (pageChange)="pageActual = $event"
+  class="my-pagination text-center"
+></pagination-controls>

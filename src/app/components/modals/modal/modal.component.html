@@ -36,7 +36,7 @@
           </div>
           <div class="form-group">
             <label for="Descripción">Descripción</label>
-            <input type="text" class="form-control" name="description" placeholder="Descripción" [(ngModel)]="this.dataApiService.selectedPost.description" />
+            <textarea rows="3" class="form-control" name="description" placeholder="Descripción" [(ngModel)]="this.dataApiService.selectedPost.description"></textarea>
           </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" #btnClose data-dismiss="modal">Cancelar</button>
