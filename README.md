@@ -28,6 +28,6 @@ Enlace a la imágen del diagrama de componentes: [Imágen](/documentacion/Diagra
 
 Enlace a la documentación dle diagrama y breve resúmen: [Documentación](/documentacion/README.md)
 
-#Comparativa Diagrama de Gannt
+# Comparativa Diagrama de Gannt
 [Comparativa](/documentacion/ComparativaHoras.pdf)
 
