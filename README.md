@@ -24,9 +24,9 @@ https://mycityis-9898d.firebaseapp.com/
 
 
 # Diagrama de Componentes: 
-[Imágen](/documentacion/DiagramaComponentes.png)
+Enlace a la imágen del diagrama de componentes: [Imágen](/documentacion/DiagramaComponentes.png)
 
-[Documentación](/documentacion/README.md)
+Enlace a la documentación dle diagrama y breve resúmen: [Documentación](/documentacion/README.md)
 
 #Comparativa Diagrama de Gannt
 [Comparativa](/documentacion/ComparativaHoras.pdf)
