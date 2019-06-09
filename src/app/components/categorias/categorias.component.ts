@@ -39,7 +39,6 @@ export class CategoriasComponent implements OnInit {
     this.MyCategories = [];
     let userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
     myCategories =  userInfo.categories
-    console.log(myCategories, this.categories);
     for (let category of categories){
      if(myCategories.includes(category.titulo)){
       this.MyCategories.push(category)
@@ -57,9 +56,6 @@ export class CategoriasComponent implements OnInit {
     })
   }
 
-  // saveUserCategroy(){
-  //   console.log("sube esta categoria:");
-  // }
 
   addMyCategory(category){
     let user = JSON.parse(sessionStorage.getItem("userInfo"));
@@ -85,7 +81,6 @@ export class CategoriasComponent implements OnInit {
 
   removeMyCategory(category){
     let newMyCategories = [];
-    console.log(this.MyCategories);
     for(let myCategory of this.MyCategories){
       if(myCategory.titulo!=category){
         newMyCategories.push(myCategory.titulo);
@@ -112,7 +107,6 @@ export class CategoriasComponent implements OnInit {
   }
 
   scrollToElement($element): void {
-    console.log($element);
     $element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   }
 

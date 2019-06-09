@@ -67,7 +67,7 @@ export class AdminComponent implements OnInit {
   this.selectedCategory = categoria;
     this.dataApi.getAll(categoria).subscribe(posts =>{
       this.posts = posts;
-      console.log(this.posts);
+     
     })
   }
 
@@ -91,7 +91,6 @@ export class AdminComponent implements OnInit {
     this.unknown = false;
     this.selectedUser = null;
     let userName= (<HTMLInputElement>document.getElementById("searchUser")).value
-    console.log(userName);
     this.authService.getOneUser(userName).subscribe(data => {
       if(data){
         this.selectedUser = data

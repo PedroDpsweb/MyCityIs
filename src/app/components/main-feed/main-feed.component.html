@@ -17,7 +17,12 @@
         </div>
     </div>
 </div>
+
   <pagination-controls (pageChange)="pageActual = $event" class="my-pagination text-center"></pagination-controls>
+
+  <div class="text-center">
+      <button class="btn btn-outline-dark text-center back text-center my-3" routerLink="/user/comunidades"><i class="fas fa-arrow-circle-left"></i> Volver</button>
+  </div>
 
 <app-modal [userUid]="userUid" [userName]="userName"></app-modal>
 

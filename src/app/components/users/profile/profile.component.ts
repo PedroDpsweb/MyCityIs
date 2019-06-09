@@ -98,18 +98,15 @@ export class ProfileComponent implements OnInit {
   }
 
   countingStars(starConf) {
-    console.log(starConf);
     //función para representar tu puntuación con estrellas
     let counter = starConf.userStar.length;
     let total = parseInt(starConf.totalStars, 10);
     let stars = Math.floor(total / counter);
-    console.log(total);
     return stars;
   }
 
   printStars(numStar) {
     let starCont = document.getElementById("starCont");
-    console.log(starCont);
     starCont.innerHTML="";
       for (let i = 0; i < 5; i++) {
         if (i < numStar) {
@@ -144,7 +141,6 @@ export class ProfileComponent implements OnInit {
   }
 
   onUpload(e){
-      console.log("subiendo..");
       const id = Math.random()
         .toString(36)
         .substring(2);

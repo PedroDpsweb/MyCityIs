@@ -2,14 +2,12 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { postInterface } from '../../../models/post';
 import { DataApiService } from 'src/app/services/data-api.service';
-import { Component, OnInit, ViewChild, ElementRef, Input} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { count, finalize } from 'rxjs/operators';
 import { ToolsService } from '../../../services/tools.service';
 import { Observable } from 'rxjs';
-import { AngularFireStorage } from "@angular/fire/storage";
+import { AngularFireStorage } from '@angular/fire/storage';
 import Swal from 'sweetalert2';
-
-
 
 @Component({
   selector: 'app-modal',
@@ -17,36 +15,38 @@ import Swal from 'sweetalert2';
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
-
   constructor(
-    public authService :AuthService,
-    public dataApiService : DataApiService,
+    public authService: AuthService,
+    public dataApiService: DataApiService,
     private fireStorage: AngularFireStorage,
     private tools: ToolsService
-  ) { }
+  ) {}
 
   @ViewChild('btnClose') btnClose: ElementRef;
   @Input('userUid') userUid: string;
   @Input('userName') userName: string;
   @Input('isUpdate') isUpdate: boolean;
-  private user="";
+  private user = '';
   uploadPercent: Observable<number>;
   urlImage: Observable<String>;
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  onSavePost(postForm:NgForm){
-    let likeTemplate = {count:"0", users:[] }
-   let category = sessionStorage.getItem("categoria");
-    if (postForm.value.id === null ){
+  onSavePost(postForm: NgForm) {
+    let likeTemplate = { count: '0', users: [] };
+    let category = sessionStorage.getItem('categoria');
+    if (postForm.value.id === null) {
       postForm.value.like = likeTemplate;
-      postForm.value.date = this.tools.dateConverter(this.tools.getFormatedDate());
+      postForm.value.date = this.tools.dateConverter(
+        this.tools.getFormatedDate()
+      );
       postForm.value.user = this.authService.user.name;
-      postForm.value.photoUrl =  (<HTMLInputElement>document.getElementById("photoUrl")).value;
+      postForm.value.photoUrl = (<HTMLInputElement>(
+        document.getElementById('photoUrl')
+      )).value;
       this.dataApiService.addPost(postForm.value);
-    }else{
-      this.dataApiService.updatePost(postForm.value,category);
+    } else {
+      this.dataApiService.updatePost(postForm.value, category);
     }
     postForm.resetForm();
     this.btnClose.nativeElement.click();
@@ -54,19 +54,16 @@ export class ModalComponent implements OnInit {
       title: 'Post Subido',
       type: 'success',
       text: 'Su post se publicó correctamente',
-      imageUrl:(<HTMLInputElement>document.getElementById("photoUrl")).value,
+      imageUrl: (<HTMLInputElement>document.getElementById('photoUrl')).value,
       imageWidth: 400,
       imageHeight: 200,
       imageAlt: 'Imagen Post',
       animation: true
-    })
-
-
+    });
   }
 
   onUpload(e) {
-    let categoria = sessionStorage.getItem("categoria");
-    console.log("subiendo..");
+    let categoria = sessionStorage.getItem('categoria');
     const id = Math.random()
       .toString(36)
       .substring(2);
@@ -77,12 +74,13 @@ export class ModalComponent implements OnInit {
     this.uploadPercent = task.percentageChanges();
     task
       .snapshotChanges()
-      .pipe(finalize(() => (
-        //Campo oculto del html, aquí se queda guardada la URL de la imagen
-        this.urlImage = ref.getDownloadURL())))
+      .pipe(
+        finalize(
+          () =>
+            //Campo oculto del html, aquí se queda guardada la URL de la imagen
+            (this.urlImage = ref.getDownloadURL())
+        )
+      )
       .subscribe();
   }
-
-
-
 }

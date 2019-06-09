@@ -30,7 +30,6 @@ export class AdminGuardGuard implements CanActivate {
     if(this.authService.admin==true){
       return true
     }else{
-      console.log("admin-guard activado");
       this.router.navigate(['']);
     }
   }

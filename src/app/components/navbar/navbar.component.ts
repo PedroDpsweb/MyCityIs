@@ -59,7 +59,6 @@ export class NavbarComponent implements OnInit {
 
   getSessionCredentials(){
     if(sessionStorage.getItem('userInfo')){
-      console.log("entra");
       let user =  JSON.parse(sessionStorage.getItem('userInfo'))
       this.userName = user.name;
       this.password = this.tools.decryptPlainText(user.password);

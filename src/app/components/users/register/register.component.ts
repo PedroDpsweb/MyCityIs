@@ -27,18 +27,22 @@ export class RegisterComponent implements OnInit {
   public password: string = "";
   uploadPercent: Observable<number>;
   urlImage: Observable<String>;
+  public blocked = false;
 
   ngOnInit() {}
 
   registeringUser(form, img){
-  form.profilePic = img.value;
-  this.authService.regUser(form);
-  this.welcomeMail(form.userName);
-  console.log("acabo");
+  if(form.userName != "admin"){
+    form.profilePic = img.value;
+    this.authService.regUser(form);
+    this.welcomeMail(form.userName);
+  }else{
+    this.blocked = true;
+  }
+  
   }
 
   onUpload(e) {
-    console.log("subiendo..");
     const id = Math.random()
       .toString(36)
       .substring(2);

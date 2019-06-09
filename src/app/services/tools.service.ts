@@ -41,14 +41,12 @@ export class ToolsService {
   }
 
   encryptPlainText(text){
-    console.log("enciptando este texto:", text);
     let ciphertext = CryptoJS.AES.encrypt(text, 'secret key 123');
     return ciphertext.toString();
   }
 
   decryptPlainText(text){
     let bytes  = CryptoJS.AES.decrypt(text, 'secret key 123');
-    console.log("input", text , "bytes", bytes);
     let plaintext = bytes.toString(CryptoJS.enc.Utf8);
     return plaintext;
 
