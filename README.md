@@ -7,7 +7,7 @@ https://mycityis-9898d.firebaseapp.com/
 - Desarrollado por:
     - Pedro José Sánchez Martínez
 
-- Tecnologías utilizada;
+- Tecnologías utilizadas
     - Angular 7 y bootstrap
     - Firebase:
         - Storage para almacenar imágenes
