@@ -1,7 +1,7 @@
 # My City Is
 Aplicación para la gestión de comunidades en forma de red social
 
-Enlace a la aplicación desplegada: [MyCityIs](https://mycityis-9898d.firebaseapp.com/)
+Enlace a la aplicación desplegada:
 https://mycityis-9898d.firebaseapp.com/
 
 - Desarrollado por:
