@@ -19,6 +19,7 @@ https://mycityis-9898d.firebaseapp.com/
     - Sweet Alert para efectos de alertas y modales
     - Ngx pagination - es un módulo de Angular para paginaciones
     - AngularFire2 - nos ayudará con el uso de firebase
+    - CryptoJS para encriptacion de contraseñas
 
 
 
