@@ -35,3 +35,7 @@ Enlace a la comparativa entre los diagramas de Gannt: [Comparativa](/documentaci
 # Esquema Base de Datos
 Enlace al esquema de base de datos: [Base de datos](/documentacion/Esquema_base_de_datos.pdf)
 
+# Presupuesto
+Enlace al presupuesto: [Presupuesto](/documentacion/presupuesto.pdf)
+
+
